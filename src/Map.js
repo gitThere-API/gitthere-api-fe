@@ -33,10 +33,10 @@ export default class Map extends Component {
                     <div>Current location: <span>xx.xxxx, xx.xxxx</span><button>Save current location</button>
                     </div>
                     <div>
-                        <span className='LocationList'>1. saved location 1</span>
-                        <span className='LocationList'>2. saved location 2</span>
-                        <span className='LocationList'>3. saved location 3</span>
-                        <span className='LocationList'>4. saved location 4</span>
+                        <span className='LocationList'>1. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
+                        <span className='LocationList'>2. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
+                        <span className='LocationList'>3. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
+                        <span className='LocationList'>4. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
                     </div>
                 </section>
             </div>
