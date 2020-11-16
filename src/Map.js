@@ -1,17 +1,21 @@
 import React, { Component } from 'react'
 import GoogleMapReact from 'google-map-react';
-import BasicMarker from './BasicMarker.js';
+import BasicMarkerLime from './BasicMarkerLime.js';
+import BasicMarkerNike from './BasicMarkerNike.js';
+import BasicMarkerSpin from './BasicMarkerSpin.js';
 import './App.css';
 import './Map.css';
-
+import { allLime } from './limeStub.js';
+import { allNike } from './nikeStub.js';
+import { allSpin } from './spinStub.js';
 
 export default class Map extends Component {
     static defaultProps = {
         center: {
-          lat: 45.5051,
-          lng: -122.6750
+          lat: 45.5233858,
+          lng: -122.6809206
         },
-        zoom: 18
+        zoom: 19
       };
 
     render() {
@@ -46,16 +50,44 @@ export default class Map extends Component {
                 defaultCenter={this.props.center}
                 defaultZoom={this.props.zoom}
                 >
-                    <BasicMarker
-                        lat={45.5051}
-                        lng={-122.6750}
-                        text="My Marker"
-                    />
-                    <BasicMarker
+                    {/* lime stub editted, will probably need subs corrected */}
+                    {allLime.bikes.map(onelime => 
+                        <BasicMarkerLime
+                        lat={onelime.lat}
+                        lng={onelime.lon}
+                        text={onelime.bike_id}
+                        />
+                    )}
+                    {/* nike stub editted, will probably need subs corrected */}
+                    {allNike.bikes.map(onelime => 
+                        <BasicMarkerNike
+                        lat={onelime.lat}
+                        lng={onelime.lon}
+                        text={onelime.bike_id}
+                        />
+                    )}
+                    {/* Spin stub not edited */}
+                    {allSpin.data.bikes.map(onelime => 
+                        <BasicMarkerSpin
+                        lat={onelime.lat}
+                        lng={onelime.lon}
+                        text={onelime.bike_id}
+                        />
+                    )}
+                    {/* No trimet data at this time. */}
+                    {/* {allTriMet.map(onelime => 
+                        <BasicMarkerTrimet
+                        lat={onelime.lat}
+                        lng={onelime.lon}
+                        text={onelime.bike_id}
+                        />
+                    )} */}
+                    {/* Beginning example marker */}
+                    {/* <BasicMarker
                         lat={45.5060}
                         lng={-122.6750}
                         text="My Marker"
-                    />
+                    /> */}
                 </GoogleMapReact>
             </div>
             <section className='BusButtons'><h2>Here are where the bus buttons will go to then go on to details.</h2>
