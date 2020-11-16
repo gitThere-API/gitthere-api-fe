@@ -10,7 +10,7 @@ import About from './About.js';
 import Map from './Map.js';
 import Detail from './Detail.js';
 import Home from './Home.js'
-import PrivateRoute from './PrivateRoute.js';
+// import PrivateRoute from './PrivateRoute.js';
 
 export default class App extends Component {
   state = {
@@ -51,8 +51,7 @@ export default class App extends Component {
                   <button onClick={this.logOut}>Log out</button>
                 </div>
                 : <>
-                  <Link to="/login"><div>log in</div></Link>
-                  <Link to="/signup"><div>sign up</div></Link>
+                  <Link to="/about"><div>About Us</div></Link>
                 </>}
           </ul>
           <Switch>
@@ -65,20 +64,18 @@ export default class App extends Component {
               render={(routerProps) => <About
                 {...routerProps} />}
             />
-            <PrivateRoute
+            <Route
               exact
               path='/map'
-              token={this.state.token}
               render={(routerProps) => <Map
                 {...routerProps}
-                token={this.state.token} />} />
-            <PrivateRoute
+              />} />
+            <Route
               exact
               path='/detail/:id'
-              token={this.state.token}
               render={(routerProps) => <Detail
                 {...routerProps}
-                token={this.state.token} />} />
+              />} />
           </Switch>
         </Router>
       </div>
