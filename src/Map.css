@@ -1,0 +1,19 @@
+.BusButtons {
+    border: solid black 3px;
+    text-align: center;
+}
+
+.LocationList {
+    display: block;
+}
+
+.MapHeader {
+    text-align: center;
+}
+
+.MapSubHeader {
+    display: flex;
+    flex-direction: row;
+    border: black solid 3px;
+    justify-content: space-around;
+}
