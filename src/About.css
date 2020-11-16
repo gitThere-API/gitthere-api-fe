@@ -1,0 +1,13 @@
+img {
+    width: 80%;
+    border-radius: 50%;
+}
+
+.about {
+    display: flex;
+    flex-direction: row;
+}
+
+div {
+    padding: 10px;
+}
