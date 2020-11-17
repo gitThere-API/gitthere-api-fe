@@ -74,7 +74,8 @@ export default class App extends Component {
             <PrivateRoute
               token={this.state.token}
               exact
-              path='/detail/:id'
+              //removed /:id, need to return later.
+              path='/detail'
               render={(routerProps) => <Detail
                 {...routerProps} token={this.state.token}
               />} />
