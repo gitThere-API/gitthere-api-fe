@@ -16,8 +16,9 @@ export default class Map extends Component {
         nike: [],
         spin: [],
         trimet: [],
-        lat: 45.5233858,
-        lng: -122.6809206
+        favorites: [],
+        lat: 45.523,
+        lng: -122.670
     }
 
     static defaultProps = {
@@ -75,9 +76,9 @@ export default class Map extends Component {
 
     componentDidMount = async () => {
         await this.fetchLime()
-        await this.fetchNike()
-        await this.fetchSpin()
-        await this.fetchTrimet()
+        // await this.fetchNike()
+        // await this.fetchSpin()
+        // await this.fetchTrimet()
     }
 
     handleSubmit = async (e) => {
@@ -99,9 +100,9 @@ export default class Map extends Component {
         })
 
         await this.fetchLime();
-        await this.fetchNike();
-        await this.fetchSpin();
-        await this.fetchTrimet();
+        // await this.fetchNike();
+        // await this.fetchSpin();
+        // await this.fetchTrimet();
     }
 
     handleFavoriteClick = async () => {
@@ -111,11 +112,20 @@ export default class Map extends Component {
         await request.post('https://desolate-bayou-65072.herokuapp.com/api/favorites')
             .send({
                 name: faveName,
-                lat: 45.5233858,
-                lng: -122.6809206,
+                lat: this.state.lat,
+                lng: this.state.lng,
                 address: this.state.location,
             })
             .set('Authorization', this.props.token)
+
+        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
+            .set('Authorization', this.props.token)
+        await this.setState({ favorites: response.body })
+        await this.setState({ loading: false });
+    }
+
+    handleDeleteClick = async () => {
+        await this.setState({ loading: true });
     }
 
     render() {
@@ -145,10 +155,15 @@ export default class Map extends Component {
                             <button onClick={this.handleFavoriteClick}>Save current location</button>
                         </div>
                         <div>
-                            <span className='LocationList'>1. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
-                            <span className='LocationList'>2. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
-                            <span className='LocationList'>3. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
-                            <span className='LocationList'>4. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
+                            <>
+                                {this.state.favorites.map(favorite =>
+                                    <div className='LocationList' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
+                                        <p>{favorite.name}</p>
+                                        <p>{favorite.address}</p>
+                                        <button onClick="handleDeleteClick">Delete</button>
+                                    </div>
+                                )}
+                            </>
                         </div>
                     </section>
                 </div>
@@ -166,7 +181,7 @@ export default class Map extends Component {
                                 text={onelime.bike_id}
                             />
                         )}
-                        {this.state.nike.map(onelime =>
+                        {/* {this.state.nike.map(onelime =>
                             <BasicMarkerNike
                                 lat={onelime.lat}
                                 lng={onelime.lon}
@@ -179,8 +194,7 @@ export default class Map extends Component {
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
                             />
-                        )}
-                        {/* )} */}
+
                         {/* No trimet data at this time. */}
                         {/* {allTriMet.map(onelime => 
                         <BasicMarkerTrimet
