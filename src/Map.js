@@ -104,10 +104,10 @@ export default class Map extends Component {
 
         await request.post('https://desolate-bayou-65072.herokuapp.com/api/favorites')
             .send({
-                name = faveName,
-                lat = ,
-                lng = ,
-                address = this.state.location,
+                name: faveName,
+                lat: 45.5233858,
+                lng: -122.6809206,
+                address: this.state.location,
             })
             .set('Authorization', this.props.token)
     }
