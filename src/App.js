@@ -10,12 +10,12 @@ import About from './About.js';
 import Map from './Map.js';
 import Detail from './Detail.js';
 import Home from './Home.js'
-// import PrivateRoute from './PrivateRoute.js';
+import PrivateRoute from './PrivateRoute.js';
 
 export default class App extends Component {
   state = {
-    token: localStorage.getItem('TOKEN' || ''),
-    username: localStorage.getItem('USERNAME' || '')
+    token: localStorage.getItem('TOKEN') || '',
+    username: localStorage.getItem('USERNAME') || ''
   }
 
   handleTokenChange = (myToken) => {
@@ -64,17 +64,19 @@ export default class App extends Component {
               render={(routerProps) => <About
                 {...routerProps} />}
             />
-            <Route
+            <PrivateRoute
+              token={this.state.token}
               exact
               path='/map'
               render={(routerProps) => <Map
-                {...routerProps}
+                {...routerProps} token={this.state.token}
               />} />
-            <Route
+            <PrivateRoute
+              token={this.state.token}
               exact
               path='/detail/:id'
               render={(routerProps) => <Detail
-                {...routerProps}
+                {...routerProps} token={this.state.token}
               />} />
           </Switch>
         </Router>
