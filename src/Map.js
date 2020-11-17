@@ -15,7 +15,9 @@ export default class Map extends Component {
         lime: [],
         nike: [],
         spin: [],
-        trimet: []
+        trimet: [],
+        lat: 45.5233858,
+        lng: -122.6809206
     }
 
     static defaultProps = {
@@ -31,9 +33,10 @@ export default class Map extends Component {
 
         await this.setState({ loading: true });
         const response = await request
-            .get('https://desolate-bayou-65072.herokuapp.com/api/lime')
+            .get(`https://desolate-bayou-65072.herokuapp.com/api/lime?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
         await this.setState({ lime: response.body, loading: false })
+
     }
 
     fetchNike = async () => {
@@ -65,7 +68,7 @@ export default class Map extends Component {
         const response = await request
             .get('https://desolate-bayou-65072.herokuapp.com/api/trimet')
             .set('Authorization', token)
-        // .send(this.state.lat, this.state.lon)
+            .send(this.state.lat, this.state.lng)
 
         await this.setState({ trimet: response.body, loading: false })
     }
@@ -74,7 +77,7 @@ export default class Map extends Component {
         await this.fetchLime()
         await this.fetchNike()
         await this.fetchSpin()
-        // await this.fetchTrimet()
+        await this.fetchTrimet()
     }
 
     handleSubmit = async (e) => {
@@ -83,23 +86,29 @@ export default class Map extends Component {
         e.preventDefault();
 
         const newLocation = {
-            location: this.state,
+            location: this.state.location,
         };
 
         await this.setState({ loading: true });
 
-        await request.post('https://desolate-bayou-65072.herokuapp.com/location')
+        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/location')
             .send(newLocation)
             .set('Authorization', token);
+
+        this.setState({
+            lat: response.body.lat,
+            lng: response.body.lng
+        })
 
         await this.fetchLime();
         await this.fetchNike();
         await this.fetchSpin();
-        // await this.fetchTrimet();
+        await this.fetchTrimet();
     }
 
     render() {
 
+        console.log(this.state.lime);
 
         return (
             <div>
