@@ -1,11 +1,14 @@
 import React, { Component } from 'react'
 import request from 'superagent';
+import PrivateRoute from './PrivateRoute.js';
 
 export default class Home extends Component {
 
     state = {
-        email: '',
-        password: '',
+        signUpEmail: '',
+        signUpPassword: '',
+        loginEmail: '',
+        loginPassword: '',
         loading: false,
     }
 
@@ -13,14 +16,17 @@ export default class Home extends Component {
         e.preventDefault();
         console.log(this.state);
 
+        this.setState({ loading: true })
         const user = await request
-            .post('https://desolate-bayou-65072.herokuapp.com/signup')
-            .send(this.state);
+            .post('https://desolate-bayou-65072.herokuapp.com/auth/signup')
+            .send(this.state.signUpEmail, this.state.signUpPassword);
 
         localStorage.setItem('USERNAME', user.email);
 
         this.props.handleTokenChange(user.body.token);
         this.props.handleUsernameChange(user.body.email);
+
+        this.setState({ loading: false })
 
         this.props.history.push('/map')
     }
@@ -29,14 +35,17 @@ export default class Home extends Component {
         e.preventDefault();
         console.log(this.state);
 
+        this.setState({ loading: true })
         const user = await request
-            .post('https://desolate-bayou-65072.herokuapp.com/signin')
-            .send(this.state);
+            .post('https://desolate-bayou-65072.herokuapp.com/auth/signin')
+            .send(this.state.loginEmail, this.state.loginPassword);
 
         localStorage.setItem('USERNAME', user.email);
 
         this.props.handleTokenChange(user.body.token);
         this.props.handleUsernameChange(user.body.email);
+
+        this.setState({ loading: false })
 
         this.props.history.push('/map')
     }
@@ -50,22 +59,30 @@ export default class Home extends Component {
                 Sign Up
                 <form onSubmit={this.handleSignupSubmit}>
                     <label>
-                        Username: <input onChange={(e) => this.setState({ email: e.target.value })} value={this.state.email} />
+                        Username: <input onChange={(e) => this.setState({ signUpEmail: e.target.value })} value={this.state.signUpEmail} type="email" />
                     </label>
                     <label>
-                        Password: <input onChange={(e) => this.setState({ password: e.target.value })} value={this.state.password} type="password" />
+                        Password: <input onChange={(e) => this.setState({ signUpPassword: e.target.value })} value={this.state.signUpPassword} type="password" />
                     </label>
-                    <button>Sign Up!</button>
+                    {
+                        this.state.loading
+                            ? 'Loadddiiinnnnnggggggg'
+                            : <button>Sign Up!</button>
+                    }
                 </form>
                 Log In
                 <form onSubmit={this.handleLoginSubmit}>
                     <label>
-                        Username: <input onChange={(e) => this.setState({ email: e.target.value })} value={this.state.email} />
+                        Username: <input onChange={(e) => this.setState({ loginEmail: e.target.value })} value={this.state.loginEmail} type="email" />
                     </label>
                     <label>
-                        Password: <input onChange={(e) => this.setState({ password: e.target.value })} value={this.state.password} type="password" />
+                        Password: <input onChange={(e) => this.setState({ loginPassword: e.target.value })} value={this.state.loginPassword} type="password" />
                     </label>
-                    <button>Log in!</button>
+                    {
+                        this.state.loading
+                            ? 'Loadddiiinnnnnggggggg'
+                            : <button>Log in!</button>
+                    }
                 </form>
             </>
         )
