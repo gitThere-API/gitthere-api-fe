@@ -72,7 +72,8 @@ export default class App extends Component {
               />} />
             <Route
               exact
-              path='/detail/:id'
+              //removed /:id, need to return later.
+              path='/detail'
               render={(routerProps) => <Detail
                 {...routerProps}
               />} />
