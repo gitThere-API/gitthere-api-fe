@@ -33,7 +33,7 @@ export default class Map extends Component {
         const response = await request
             .get('https://desolate-bayou-65072.herokuapp.com/api/lime')
             .set('Authorization', token)
-        await this.setState({ lime: JSON.parse(response.body.text).data.bikes, loading: false })
+        await this.setState({ lime: response.body, loading: false })
     }
 
     fetchNike = async () => {
@@ -44,7 +44,7 @@ export default class Map extends Component {
             .get('https://desolate-bayou-65072.herokuapp.com/api/nike')
             .set('Authorization', token)
 
-        await this.setState({ nike: JSON.parse(response.body.text).data.bikes, loading: false })
+        await this.setState({ nike: response.body, loading: false })
     }
 
     fetchSpin = async () => {
@@ -55,7 +55,7 @@ export default class Map extends Component {
             .get('https://desolate-bayou-65072.herokuapp.com/api/spin')
             .set('Authorization', token)
 
-        await this.setState({ spin: JSON.parse(response.body.text).data.bikes, loading: false })
+        await this.setState({ spin: response.body, loading: false })
     }
 
     fetchTrimet = async () => {
