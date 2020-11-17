@@ -36,21 +36,29 @@ export default class Home extends Component {
 
     handleLoginSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.state);
 
         this.setState({ loading: true })
-        const user = await request
-            .post('https://desolate-bayou-65072.herokuapp.com/auth/signin')
-            .send(this.state.loginEmail, this.state.loginPassword);
+        try {
+            const user = await request
+                .post('https://desolate-bayou-65072.herokuapp.com/auth/signin')
+                .send({
+                    email: this.state.loginEmail,
+                    password: this.state.loginPassword
+                });
 
-        localStorage.setItem('USERNAME', user.email);
+            this.setState({ loading: false })
+            localStorage.setItem('USERNAME', user.email);
 
-        this.props.handleTokenChange(user.body.token);
-        this.props.handleUsernameChange(user.body.email);
+            this.props.handleTokenChange(user.body.token);
+            this.props.handleUsernameChange(user.body.email);
 
-        this.setState({ loading: false })
+            this.props.history.push('/map')
+        }
 
-        this.props.history.push('/map')
+        catch (e) {
+            this.setState({ loading: false })
+            alert("Sorry, it looks like you've entered an invalid username/password. Please try again, or if this is your first time please use the Sign-up instead.")
+        }
     }
 
 
