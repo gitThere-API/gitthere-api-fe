@@ -19,7 +19,10 @@ export default class Home extends Component {
         this.setState({ loading: true })
         const user = await request
             .post('https://desolate-bayou-65072.herokuapp.com/auth/signup')
-            .send(this.state.signUpEmail, this.state.signUpPassword);
+            .send({
+                email: this.state.signUpEmail,
+                password: this.state.signUpPassword
+            });
 
         localStorage.setItem('USERNAME', user.email);
 
