@@ -45,7 +45,7 @@ export default class Map extends Component {
 
         await this.setState({ loading: true });
         const response = await request
-            .get('https://desolate-bayou-65072.herokuapp.com/api/nike')
+            .get(`https://desolate-bayou-65072.herokuapp.com/api/nike?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
 
         await this.setState({ nike: response.body, loading: false })
@@ -56,7 +56,7 @@ export default class Map extends Component {
 
         await this.setState({ loading: true });
         const response = await request
-            .get('https://desolate-bayou-65072.herokuapp.com/api/spin')
+            .get(`https://desolate-bayou-65072.herokuapp.com/api/spin?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
 
         await this.setState({ spin: response.body, loading: false })
@@ -67,9 +67,9 @@ export default class Map extends Component {
 
         await this.setState({ loading: true });
         const response = await request
-            .get('https://desolate-bayou-65072.herokuapp.com/api/trimet')
+            .get(`https://desolate-bayou-65072.herokuapp.com/api/trimetlat=${this.state.lat}&lng=${this.state.lng}`)
             .set('Authorization', token)
-            .send(this.state.lat, this.state.lng)
+
 
         await this.setState({ trimet: response.body, loading: false })
     }
@@ -86,14 +86,12 @@ export default class Map extends Component {
 
         e.preventDefault();
 
-        const newLocation = {
-            location: this.state.location,
-        };
 
         await this.setState({ loading: true });
 
-        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/location')
-            .send(newLocation)
+        const response = await request.get(`https://desolate-bayou-65072.herokuapp.com/api/location?search=${this.state.location}`)
+
+       
             .set('Authorization', token);
 
         this.setState({
@@ -134,6 +132,7 @@ export default class Map extends Component {
 
         console.log(this.state.lime);
 
+
         return (
             <div>
                 <div className='MapHeader'>
@@ -171,7 +170,7 @@ export default class Map extends Component {
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
                         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
-                        defaultCenter={this.props.center}
+                        defaultCenter={{ lat: this.state.lat, lng: this.state.lng }}
                         defaultZoom={this.props.zoom}
                     >
                         {/* lime stub editted, will probably need subs corrected */}
@@ -195,7 +194,7 @@ export default class Map extends Component {
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
                             />
-                        )} */}
+
                         {/* No trimet data at this time. */}
                         {/* {allTriMet.map(onelime => 
                         <BasicMarkerTrimet
