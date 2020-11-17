@@ -69,6 +69,7 @@ export default class Map extends Component {
             .get(`https://desolate-bayou-65072.herokuapp.com/api/trimetlat=${this.state.lat}&lng=${this.state.lng}`)
             .set('Authorization', token)
 
+
         await this.setState({ trimet: response.body, loading: false })
     }
 
@@ -76,7 +77,7 @@ export default class Map extends Component {
         await this.fetchLime()
         await this.fetchNike()
         await this.fetchSpin()
-        // await this.fetchTrimet()
+        await this.fetchTrimet()
     }
 
     handleSubmit = async (e) => {
@@ -84,9 +85,12 @@ export default class Map extends Component {
 
         e.preventDefault();
 
+
         await this.setState({ loading: true });
 
         const response = await request.get(`https://desolate-bayou-65072.herokuapp.com/api/location?search=${this.state.location}`)
+
+       
             .set('Authorization', token);
 
         this.setState({
@@ -97,7 +101,7 @@ export default class Map extends Component {
         await this.fetchLime();
         await this.fetchNike();
         await this.fetchSpin();
-        // await this.fetchTrimet();
+        await this.fetchTrimet();
     }
 
     handleFavoriteClick = async () => {
@@ -117,7 +121,7 @@ export default class Map extends Component {
     render() {
 
         console.log(this.state.lime);
-        console.log(this.state.lat, this.state.lng);
+
 
         return (
             <div>
