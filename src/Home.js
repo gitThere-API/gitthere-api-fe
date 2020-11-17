@@ -65,7 +65,6 @@ export default class Home extends Component {
     render() {
         return (
             <>
-                <h2>gitThere: API</h2>
                 <div><img src="https://www.placecage.com/g/700/450" alt="map-example" /></div>
                 Sign Up
                 <form onSubmit={this.handleSignupSubmit}>

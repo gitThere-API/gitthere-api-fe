@@ -11,6 +11,7 @@ import Map from './Map.js';
 import Detail from './Detail.js';
 import Home from './Home.js'
 import PrivateRoute from './PrivateRoute.js';
+import Header from './Header.js';
 
 export default class App extends Component {
   state = {
@@ -43,17 +44,7 @@ export default class App extends Component {
     return (
       <div>
         <Router>
-          <ul>
-            {
-              this.state.token
-                ? <div>
-                  Hello, {this.state.username}
-                  <button onClick={this.logOut}>Log out</button>
-                </div>
-                : <>
-                  <Link to="/about"><div>About Us</div></Link>
-                </>}
-          </ul>
+          <Header token={this.state.token} username={this.state.username} logOut={this.logOut} />
           <Switch>
             <Route exact path='/'
               render={(routerProps) => <Home
