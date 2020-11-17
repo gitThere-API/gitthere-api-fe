@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import request from 'superagent';
-import PrivateRoute from './PrivateRoute.js';
+
 
 export default class Home extends Component {
 
