@@ -12,10 +12,10 @@ export default class Map extends Component {
     state = {
         location: '',
         loading: false,
-        lime: {},
-        nike: {},
-        spin: {},
-        trimet: {}
+        lime: [],
+        nike: [],
+        spin: [],
+        trimet: []
     }
 
     static defaultProps = {
@@ -33,8 +33,7 @@ export default class Map extends Component {
         const response = await request
             .get('https://desolate-bayou-65072.herokuapp.com/api/lime')
             .set('Authorization', token)
-
-        await this.setState({ lime: response.body, loading: false })
+        await this.setState({ lime: JSON.parse(response.body.text).data.bikes, loading: false })
     }
 
     fetchNike = async () => {
@@ -45,7 +44,7 @@ export default class Map extends Component {
             .get('https://desolate-bayou-65072.herokuapp.com/api/nike')
             .set('Authorization', token)
 
-        await this.setState({ nike: response.body, loading: false })
+        await this.setState({ nike: JSON.parse(response.body.text).data.bikes, loading: false })
     }
 
     fetchSpin = async () => {
@@ -56,7 +55,7 @@ export default class Map extends Component {
             .get('https://desolate-bayou-65072.herokuapp.com/api/spin')
             .set('Authorization', token)
 
-        await this.setState({ spin: response.body, loading: false })
+        await this.setState({ spin: JSON.parse(response.body.text).data.bikes, loading: false })
     }
 
     fetchTrimet = async () => {
@@ -66,8 +65,16 @@ export default class Map extends Component {
         const response = await request
             .get('https://desolate-bayou-65072.herokuapp.com/api/trimet')
             .set('Authorization', token)
+        // .send(this.state.lat, this.state.lon)
 
         await this.setState({ trimet: response.body, loading: false })
+    }
+
+    componentDidMount = async () => {
+        await this.fetchLime()
+        await this.fetchNike()
+        await this.fetchSpin()
+        // await this.fetchTrimet()
     }
 
     handleSubmit = async (e) => {
@@ -88,10 +95,12 @@ export default class Map extends Component {
         await this.fetchLime();
         await this.fetchNike();
         await this.fetchSpin();
-        await this.fetchTrimet();
+        // await this.fetchTrimet();
     }
 
     render() {
+
+
         return (
             <div>
                 <div className='MapHeader'>
@@ -127,23 +136,21 @@ export default class Map extends Component {
                         defaultZoom={this.props.zoom}
                     >
                         {/* lime stub editted, will probably need subs corrected */}
-                        {this.state.lime.data.bikes.map(onelime =>
+                        {this.state.lime.map(onelime =>
                             <BasicMarkerLime
                                 lat={onelime.lat}
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
                             />
                         )}
-                        {/* nike stub editted, will probably need subs corrected */}
-                        {this.state.nike.data.bikes.map(onelime =>
+                        {this.state.nike.map(onelime =>
                             <BasicMarkerNike
                                 lat={onelime.lat}
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
                             />
                         )}
-                        {/* Spin stub not edited */}
-                        {this.state.spin.data.bikes.map(onelime =>
+                        {this.state.spin.map(onelime =>
                             <BasicMarkerSpin
                                 lat={onelime.lat}
                                 lng={onelime.lon}
