@@ -106,6 +106,20 @@ export default class Map extends Component {
         await this.fetchTrimet();
     }
 
+    handleFavoriteClick = async () => {
+        await this.setState({ loading: true });
+        const faveName = prompt("What would you like to call this favorite location?");
+
+        await request.post('https://desolate-bayou-65072.herokuapp.com/api/favorites')
+            .send({
+                name: faveName,
+                lat: 45.5233858,
+                lng: -122.6809206,
+                address: this.state.location,
+            })
+            .set('Authorization', this.props.token)
+    }
+
     render() {
 
         console.log(this.state.lime);
@@ -128,7 +142,8 @@ export default class Map extends Component {
                         </form>
                     </section>
                     <section>
-                        <div>Current location: <span>xx.xxxx, xx.xxxx</span><button>Save current location</button>
+                        <div>Current location: <span>xx.xxxx, xx.xxxx</span>
+                            <button onClick={this.handleFavoriteClick}>Save current location</button>
                         </div>
                         <div>
                             <span className='LocationList'>1. <span>Location Description</span><span>Lat: </span><span>Long: </span><button>Delete</button></span>
