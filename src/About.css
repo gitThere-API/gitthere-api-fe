@@ -6,10 +6,7 @@
 .about {
     display: flex;
     flex-direction: row;
-}
-
-.about p {
-    
+    text-align: center;
 }
 
 div {
@@ -19,10 +16,16 @@ div {
 .title {
     display: flex;
     flex-direction: row;
+    justify-content: center;
 }
 
 .name {
     font-size: larger;
     font-weight: 800;
     
+}
+
+.bio {
+    display: flex;
+    text-align: left;
 }
