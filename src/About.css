@@ -28,4 +28,5 @@ div {
 .bio {
     display: flex;
     text-align: left;
+    text-indent: 1.5em;
 }
