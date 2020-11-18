@@ -209,27 +209,22 @@ export default class Map extends Component {
                             />
                         )}
                         {this.state.spin.map(onelime =>
-
                             <BasicMarkerSpin
                                 lat={onelime.lat}
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
                             />
-
-
                         )}
-
                         {!this.state.loading && this.state.trimet.map(oneStop =>
-                            <Link to={`/detail/${oneStop.attributes.locid}`}>
+                            <Link to={`/detail/${oneStop.attributes.locid}`}
+                                lat={oneStop.attributes.lat}
+                                lng={oneStop.attributes.lng}
+                                text={oneStop.attributes.locid}
+                                >Details
                                 <BasicMarkerTriMet
-                                    lat={oneStop.attributes.lat}
-                                    lng={oneStop.attributes.lng}
-                                    text={oneStop.attributes.locid}
                                 />
                             </Link>
                         )}
-
-
                     </GoogleMapReact>
                 </div>
                 <section className='BusButtons'><h2>Here are where the bus buttons will go to then go on to details.</h2>
