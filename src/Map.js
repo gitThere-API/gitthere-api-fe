@@ -67,17 +67,26 @@ export default class Map extends Component {
 
         await this.setState({ loading: true });
         const response = await request
-            .get(`https://desolate-bayou-65072.herokuapp.com/api/trimetlat=${this.state.lat}&lng=${this.state.lng}`)
+            .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
             .set('Authorization', token)
 
 
         await this.setState({ trimet: response.body, loading: false })
     }
 
+    fetchFavorites = async () => {
+        const { token } = this.props;
+
+        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
+            .set('Authorization', token)
+        await this.setState({ favorites: response.body })
+    }
+
     componentDidMount = async () => {
         await this.fetchLime()
-        // await this.fetchNike()
-        // await this.fetchSpin()
+        await this.fetchNike()
+        await this.fetchSpin()
+        await this.fetchFavorites()
         // await this.fetchTrimet()
     }
 
@@ -91,7 +100,7 @@ export default class Map extends Component {
 
         const response = await request.get(`https://desolate-bayou-65072.herokuapp.com/api/location?search=${this.state.location}`)
 
-       
+
             .set('Authorization', token);
 
         this.setState({
@@ -100,8 +109,8 @@ export default class Map extends Component {
         })
 
         await this.fetchLime();
-        // await this.fetchNike();
-        // await this.fetchSpin();
+        await this.fetchNike();
+        await this.fetchSpin();
         // await this.fetchTrimet();
     }
 
@@ -118,19 +127,20 @@ export default class Map extends Component {
             })
             .set('Authorization', this.props.token)
 
-        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
-            .set('Authorization', this.props.token)
-        await this.setState({ favorites: response.body })
+        await this.fetchFavorites()
         await this.setState({ loading: false });
     }
 
     handleDeleteClick = async () => {
         await this.setState({ loading: true });
+
+        await request.delete(`https://desolate-bayou-65072.herokuapp.com/api/favorites/${this.state.favorites.id}`)
+        await this.fetchFavorites()
     }
 
     render() {
 
-        console.log(this.state.lime);
+
 
 
         return (
@@ -151,7 +161,7 @@ export default class Map extends Component {
                         </form>
                     </section>
                     <section>
-                        <div>Current location: <span>xx.xxxx, xx.xxxx</span>
+                        <div>Current location: <span>{this.state.location}</span>
                             <button onClick={this.handleFavoriteClick}>Save current location</button>
                         </div>
                         <div>
@@ -160,7 +170,7 @@ export default class Map extends Component {
                                     <div className='LocationList' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
                                         <p>{favorite.name}</p>
                                         <p>{favorite.address}</p>
-                                        <button onClick="handleDeleteClick">Delete</button>
+                                        <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
                                     </div>
                                 )}
                             </>
@@ -181,7 +191,7 @@ export default class Map extends Component {
                                 text={onelime.bike_id}
                             />
                         )}
-                        {/* {this.state.nike.map(onelime =>
+                        {this.state.nike.map(onelime =>
                             <BasicMarkerNike
                                 lat={onelime.lat}
                                 lng={onelime.lon}
@@ -194,21 +204,19 @@ export default class Map extends Component {
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
                             />
-
-                        {/* No trimet data at this time. */}
-                        {/* {allTriMet.map(onelime => 
-                        <BasicMarkerTrimet
-                        lat={onelime.lat}
-                        lng={onelime.lon}
-                        text={onelime.bike_id}
-                        />
-                    )} */}
-                        {/* Beginning example marker */}
-                        {/* <BasicMarker
-                        lat={45.5060}
-                        lng={-122.6750}
-                        text="My Marker"
-                    /> */}
+                        )}
+                        {/* {allTriMet.map(onelime =>
+                            <BasicMarkerTrimet
+                                lat={onelime.lat}
+                                lng={onelime.lon}
+                                text={onelime.bike_id}
+                            />
+                        )}
+                        <BasicMarker
+                            lat={45.5060}
+                            lng={-122.6750}
+                            text="My Marker"
+                        /> */}
                     </GoogleMapReact>
                 </div>
                 <section className='BusButtons'><h2>Here are where the bus buttons will go to then go on to details.</h2>
