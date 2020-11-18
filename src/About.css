@@ -8,6 +8,21 @@
     flex-direction: row;
 }
 
+.about p {
+    
+}
+
 div {
     padding: 10px;
+}
+
+.title {
+    display: flex;
+    flex-direction: row;
+}
+
+.name {
+    font-size: larger;
+    font-weight: 800;
+    
 }
