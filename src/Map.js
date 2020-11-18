@@ -148,11 +148,12 @@ export default class Map extends Component {
         this.setState({ loading: false });
     }
 
-    handleUseFavorite = async (someLat, someLng) => {
+    handleUseFavorite = async (someLat, someLng, someDesc) => {
         await this.setState({
             loading: true,
             lat: someLat,
-            lng: someLng
+            lng: someLng,
+            location: someDesc
         });
         await this.fetchLime();
         await this.fetchNike();
@@ -164,7 +165,6 @@ export default class Map extends Component {
 
     render() {
 
-        console.log(this.state.lat, this.state.lng)
 
         return (
             <div>
@@ -191,8 +191,8 @@ export default class Map extends Component {
                             <>
                                 {this.state.favorites.map(favorite =>
                                     <div className='LocationList' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
-                                        <p onClick={() =>
-                                            this.handleUseFavorite(favorite.lat, favorite.lng)}>{favorite.name}</p>
+                                        <p class="pointer" onClick={() =>
+                                            this.handleUseFavorite(favorite.lat, favorite.lng, favorite.address)}>{favorite.name}</p>
                                         <p>{favorite.address}</p>
                                         {console.log(favorite.id)}
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>

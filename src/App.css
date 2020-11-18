@@ -1,3 +1,15 @@
+
+
+
+.pointer {
+  cursor: pointer;
+}
+
+.pointer:hover {
+  background-color: greenyellow;
+}
+
+
 .App {
   text-align: center;
 }
