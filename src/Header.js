@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import './Header.css';
 
 export default class Header extends Component {
     render() {
@@ -13,15 +14,15 @@ export default class Header extends Component {
                         <button onClick={this.props.logOut}>Log Out</button>
                     </div>
                         <div className="nav-links">
-                            <Link to="/">Home</Link>
-                            <Link to="/map">Map</Link>
-                            <Link to="/about">About</Link>
+                            <Link to="/">| Home |</Link>
+                            <Link to="/map"> Map |</Link>
+                            <Link to="/about"> About |</Link>
                         </div>
                     </>
                     :
                     <div>
-                        <Link to="/">Home</Link>
-                        <Link to="/about">About</Link>
+                        <Link to="/">| Home |</Link>
+                        <Link to="/about"> About |</Link>
                     </div>
                 }
                 <div className="title">

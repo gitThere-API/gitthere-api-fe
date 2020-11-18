@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import request from 'superagent';
+import './Home.css'
 
 
 export default class Home extends Component {
@@ -64,7 +65,7 @@ export default class Home extends Component {
     render() {
         return (
             <>
-                <div><img src="https://www.placecage.com/g/700/450" alt="map-example" /></div>
+                <div><img className="map-example" src="map.png" alt="map-example" /></div>
                 Sign Up
                 <form onSubmit={this.handleSignupSubmit}>
                     <label>
