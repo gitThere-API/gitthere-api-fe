@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import './Map.css';
+
 
 export default class BasicMarkerTriMet extends Component {
     render() {
         return (
             <div>
                 <svg
+                    className="trimet"
                     xmlns="http://www.w3.org/2000/svg"
                     enable-background="new 0 0 200 46.875"
                     viewBox="0 0 100.30136 100.29475"
