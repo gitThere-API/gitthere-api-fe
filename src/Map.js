@@ -111,13 +111,13 @@ export default class Map extends Component {
 
         this.setState({
             lat: response.body.lat,
-            lng: response.body.lng
+            lng: response.body.lng,
+            loading: false
         })
 
         await this.fetchLime();
         await this.fetchNike();
         await this.fetchSpin();
-
         await this.fetchTrimet();
 
     }
@@ -145,11 +145,26 @@ export default class Map extends Component {
         await request.delete(`https://desolate-bayou-65072.herokuapp.com/api/favorites/${someId}`)
             .set('Authorization', this.props.token)
         await this.fetchFavorites()
+        this.setState({ loading: false });
+    }
+
+    handleUseFavorite = async (someLat, someLng) => {
+        await this.setState({
+            loading: true,
+            lat: someLat,
+            lng: someLng
+        });
+        await this.fetchLime();
+        await this.fetchNike();
+        await this.fetchSpin();
+        await this.fetchTrimet();
+
+        await this.props.history.push('/map')
     }
 
     render() {
 
-
+        console.log(this.state.lat, this.state.lng)
 
         return (
             <div>
@@ -176,7 +191,8 @@ export default class Map extends Component {
                             <>
                                 {this.state.favorites.map(favorite =>
                                     <div className='LocationList' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
-                                        <p>{favorite.name}</p>
+                                        <p onClick={() =>
+                                            this.handleUseFavorite(favorite.lat, favorite.lng)}>{favorite.name}</p>
                                         <p>{favorite.address}</p>
                                         {console.log(favorite.id)}
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
@@ -225,20 +241,6 @@ export default class Map extends Component {
                         )}
                     </GoogleMapReact>
                 </div>
-                <section className='BusButtons'><h2>Here are where the bus buttons will go to then go on to details.</h2>
-                    <button>
-                        Sample Bus button
-                </button>
-                    <button>
-                        Sample Bus button
-                </button>
-                    <button>
-                        Sample Bus button
-                </button>
-                    <button>
-                        Sample Bus button
-                </button>
-                </section>
             </div>
 
         )
