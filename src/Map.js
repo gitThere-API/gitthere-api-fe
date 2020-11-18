@@ -1,9 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import XMLParser from 'react-xml-parser';
 import request from 'superagent';
 import GoogleMapReact from 'google-map-react';
 import BasicMarkerLime from './BasicMarkerLime.js';
 import BasicMarkerNike from './BasicMarkerNike.js';
 import BasicMarkerSpin from './BasicMarkerSpin.js';
+import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import './App.css';
 import './Map.css';
 
@@ -70,8 +73,12 @@ export default class Map extends Component {
             .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
             .set('Authorization', token)
 
+        const xml = new XMLParser().parseFromString(response.body.text);
 
-        await this.setState({ trimet: response.body, loading: false })
+        await this.setState({ trimet: xml.children, loading: false })
+
+        console.log(this.state.trimet.children);
+
     }
 
     fetchFavorites = async () => {
@@ -86,8 +93,11 @@ export default class Map extends Component {
         await this.fetchLime()
         await this.fetchNike()
         await this.fetchSpin()
+
         await this.fetchFavorites()
-        // await this.fetchTrimet()
+
+        await this.fetchTrimet()
+
     }
 
     handleSubmit = async (e) => {
@@ -111,7 +121,9 @@ export default class Map extends Component {
         await this.fetchLime();
         await this.fetchNike();
         await this.fetchSpin();
-        // await this.fetchTrimet();
+
+        await this.fetchTrimet();
+
     }
 
     handleFavoriteClick = async () => {
@@ -139,7 +151,6 @@ export default class Map extends Component {
     }
 
     render() {
-
 
 
 
@@ -183,7 +194,6 @@ export default class Map extends Component {
                         defaultCenter={{ lat: this.state.lat, lng: this.state.lng }}
                         defaultZoom={this.props.zoom}
                     >
-                        {/* lime stub editted, will probably need subs corrected */}
                         {this.state.lime.map(onelime =>
                             <BasicMarkerLime
                                 lat={onelime.lat}
@@ -199,24 +209,27 @@ export default class Map extends Component {
                             />
                         )}
                         {this.state.spin.map(onelime =>
+
                             <BasicMarkerSpin
                                 lat={onelime.lat}
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
                             />
+
+
                         )}
-                        {/* {allTriMet.map(onelime =>
-                            <BasicMarkerTrimet
-                                lat={onelime.lat}
-                                lng={onelime.lon}
-                                text={onelime.bike_id}
-                            />
+
+                        {!this.state.loading && this.state.trimet.map(oneStop =>
+                            <Link to={`/detail/${oneStop.attributes.locid}`}>
+                                <BasicMarkerTriMet
+                                    lat={oneStop.attributes.lat}
+                                    lng={oneStop.attributes.lng}
+                                    text={oneStop.attributes.locid}
+                                />
+                            </Link>
                         )}
-                        <BasicMarker
-                            lat={45.5060}
-                            lng={-122.6750}
-                            text="My Marker"
-                        /> */}
+
+
                     </GoogleMapReact>
                 </div>
                 <section className='BusButtons'><h2>Here are where the bus buttons will go to then go on to details.</h2>
