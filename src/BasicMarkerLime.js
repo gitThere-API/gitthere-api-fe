@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import LimeIcon from './Icon.svg'
 
 export default class BasicMarkerLime extends Component {
     render() {
