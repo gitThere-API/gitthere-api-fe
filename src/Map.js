@@ -32,6 +32,14 @@ export default class Map extends Component {
         zoom: 19
     };
 
+    componentDidMount = async () => {
+        await this.fetchLime()
+        await this.fetchNike()
+        await this.fetchSpin()
+        await this.fetchFavorites()
+        await this.fetchTrimet()
+    }
+
     fetchLime = async () => {
         const { token } = this.props;
 
@@ -77,8 +85,6 @@ export default class Map extends Component {
 
         await this.setState({ trimet: xml.children, loading: false })
 
-        console.log(this.state.trimet.children);
-
     }
 
     fetchFavorites = async () => {
@@ -89,16 +95,6 @@ export default class Map extends Component {
         await this.setState({ favorites: response.body })
     }
 
-    componentDidMount = async () => {
-        await this.fetchLime()
-        await this.fetchNike()
-        await this.fetchSpin()
-
-        await this.fetchFavorites()
-
-        await this.fetchTrimet()
-
-    }
 
     handleSubmit = async (e) => {
         const { token } = this.props;
@@ -143,10 +139,11 @@ export default class Map extends Component {
         await this.setState({ loading: false });
     }
 
-    handleDeleteClick = async () => {
+    handleDeleteClick = async (someId) => {
         await this.setState({ loading: true });
 
-        await request.delete(`https://desolate-bayou-65072.herokuapp.com/api/favorites/${this.state.favorites.id}`)
+        await request.delete(`https://desolate-bayou-65072.herokuapp.com/api/favorites/${someId}`)
+            .set('Authorization', this.props.token)
         await this.fetchFavorites()
     }
 
@@ -181,6 +178,7 @@ export default class Map extends Component {
                                     <div className='LocationList' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
                                         <p>{favorite.name}</p>
                                         <p>{favorite.address}</p>
+                                        {console.log(favorite.id)}
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
                                     </div>
                                 )}
@@ -220,7 +218,7 @@ export default class Map extends Component {
                                 lat={oneStop.attributes.lat}
                                 lng={oneStop.attributes.lng}
                                 text={oneStop.attributes.locid}
-                                >Details
+                            >Details
                                 <BasicMarkerTriMet
                                 />
                             </Link>
