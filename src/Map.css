@@ -17,3 +17,8 @@
     border: black solid 3px;
     justify-content: space-around;
 }
+
+.trimet:hover {
+    width: 35px;
+    height: 35px;
+}

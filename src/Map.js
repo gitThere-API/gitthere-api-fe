@@ -21,9 +21,8 @@ export default class Map extends Component {
         spin: [],
         trimet: [],
         favorites: [],
-        lat: 35,
-        lng: -115.6809206
-
+        lat: 45.5234109,
+        lng: -122.681133
     }
 
     static defaultProps = {
@@ -203,7 +202,7 @@ export default class Map extends Component {
                 </div>
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
-                        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
+                        bootstrapURLKeys={{ key: '' }}
                         defaultCenter={{
                             lat: this.state.lat,
                             lng: this.state.lng
@@ -240,7 +239,7 @@ export default class Map extends Component {
                                 lat={oneStop.attributes.lat}
                                 lng={oneStop.attributes.lng}
                                 text={oneStop.attributes.locid}
-                            >Details
+                            >
                                 <BasicMarkerTriMet
                                 />
                             </Link>
