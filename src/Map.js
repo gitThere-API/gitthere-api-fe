@@ -21,15 +21,12 @@ export default class Map extends Component {
         spin: [],
         trimet: [],
         favorites: [],
-        lat: 45.5233858,
-        lng: -122.6809206
+        lat: 35,
+        lng: -115.6809206
+
     }
 
     static defaultProps = {
-        center: {
-            lat: 45.5233858,
-            lng: -122.6809206
-        },
         zoom: 17
     };
 
@@ -111,8 +108,9 @@ export default class Map extends Component {
             .set('Authorization', token);
 
         this.setState({
-            lat: response.body.lat,
-            lng: response.body.lng,
+
+            lat: Number(response.body.lat),
+            lng: Number(response.body.lng),
             loading: false
         })
 
@@ -152,8 +150,8 @@ export default class Map extends Component {
     handleUseFavorite = async (someLat, someLng, someDesc) => {
         await this.setState({
             loading: true,
-            lat: someLat,
-            lng: someLng,
+            lat: Number(someLat),
+            lng: Number(someLng),
             location: someDesc
         });
         await this.fetchLime();
@@ -196,7 +194,6 @@ export default class Map extends Component {
                                         <p class="pointer" onClick={() =>
                                             this.handleUseFavorite(favorite.lat, favorite.lng, favorite.address)}>{favorite.name}</p>
                                         <p>{favorite.address}</p>
-                                        {console.log(favorite.id)}
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
                                     </div>
                                 )}
@@ -207,8 +204,14 @@ export default class Map extends Component {
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
                         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
-                        // defaultCenter={this.props.center}
-                        center={{ lat: this.state.lat, lng: this.state.lng }}
+                        defaultCenter={{
+                            lat: this.state.lat,
+                            lng: this.state.lng
+                        }}
+                        center={{
+                            lat: this.state.lat,
+                            lng: this.state.lng
+                        }}
                         defaultZoom={this.props.zoom}
                     >
                         {this.state.lime.map(onelime =>
