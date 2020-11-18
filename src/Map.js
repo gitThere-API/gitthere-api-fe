@@ -81,11 +81,23 @@ export default class Map extends Component {
 
     }
 
+    fetchFavorites = async () => {
+        const { token } = this.props;
+
+        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
+            .set('Authorization', token)
+        await this.setState({ favorites: response.body })
+    }
+
     componentDidMount = async () => {
         await this.fetchLime()
         await this.fetchNike()
         await this.fetchSpin()
+
+        await this.fetchFavorites()
+
         await this.fetchTrimet()
+
     }
 
     handleSubmit = async (e) => {
@@ -109,7 +121,9 @@ export default class Map extends Component {
         await this.fetchLime();
         await this.fetchNike();
         await this.fetchSpin();
+
         await this.fetchTrimet();
+
     }
 
     handleFavoriteClick = async () => {
@@ -125,17 +139,19 @@ export default class Map extends Component {
             })
             .set('Authorization', this.props.token)
 
-        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
-            .set('Authorization', this.props.token)
-        await this.setState({ favorites: response.body })
+        await this.fetchFavorites()
         await this.setState({ loading: false });
     }
 
     handleDeleteClick = async () => {
         await this.setState({ loading: true });
+
+        await request.delete(`https://desolate-bayou-65072.herokuapp.com/api/favorites/${this.state.favorites.id}`)
+        await this.fetchFavorites()
     }
 
     render() {
+
 
 
         return (
@@ -156,7 +172,7 @@ export default class Map extends Component {
                         </form>
                     </section>
                     <section>
-                        <div>Current location: <span>xx.xxxx, xx.xxxx</span>
+                        <div>Current location: <span>{this.state.location}</span>
                             <button onClick={this.handleFavoriteClick}>Save current location</button>
                         </div>
                         <div>
@@ -165,7 +181,7 @@ export default class Map extends Component {
                                     <div className='LocationList' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
                                         <p>{favorite.name}</p>
                                         <p>{favorite.address}</p>
-                                        <button onClick="handleDeleteClick">Delete</button>
+                                        <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
                                     </div>
                                 )}
                             </>
@@ -200,6 +216,7 @@ export default class Map extends Component {
                                 text={onelime.bike_id}
                             />
 
+
                         )}
 
                         {!this.state.loading && this.state.trimet.map(oneStop =>
@@ -211,6 +228,7 @@ export default class Map extends Component {
                                 />
                             </Link>
                         )}
+
 
                     </GoogleMapReact>
                 </div>
