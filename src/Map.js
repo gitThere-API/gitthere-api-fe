@@ -10,6 +10,7 @@ import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import './App.css';
 import './Map.css';
 
+
 export default class Map extends Component {
 
     state = {
@@ -20,8 +21,8 @@ export default class Map extends Component {
         spin: [],
         trimet: [],
         favorites: [],
-        lat: 45.523,
-        lng: -122.670
+        lat: 45.5233858,
+        lng: -122.6809206
     }
 
     static defaultProps = {
@@ -160,7 +161,7 @@ export default class Map extends Component {
         await this.fetchSpin();
         await this.fetchTrimet();
 
-        await this.props.history.push('/map')
+        // await this.props.history.push('/map')
     }
 
     render() {
@@ -176,6 +177,7 @@ export default class Map extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <label>Input location to return<br />
                                 <input
+                                    required
                                     value={this.state.location}
                                     onChange={(e) => this.setState({ location: e.target.value })}
                                 />
@@ -205,7 +207,8 @@ export default class Map extends Component {
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
                         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
-                        defaultCenter={{ lat: this.state.lat, lng: this.state.lng }}
+                        // defaultCenter={this.props.center}
+                        center={{ lat: this.state.lat, lng: this.state.lng }}
                         defaultZoom={this.props.zoom}
                     >
                         {this.state.lime.map(onelime =>
@@ -241,7 +244,7 @@ export default class Map extends Component {
                         )}
                     </GoogleMapReact>
                 </div>
-            </div>
+            </div >
 
         )
     }
