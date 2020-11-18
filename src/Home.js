@@ -56,7 +56,6 @@ export default class Home extends Component {
         }
 
         catch (e) {
-            this.setState({ loading: false })
             alert("Sorry, it looks like you've entered an invalid username/password. Please try again, or if this is your first time use the Sign-up instead.")
         }
     }
