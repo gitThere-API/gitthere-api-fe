@@ -30,7 +30,7 @@ export default class Map extends Component {
             lat: 45.5233858,
             lng: -122.6809206
         },
-        zoom: 19
+        zoom: 17
     };
 
     componentDidMount = async () => {
