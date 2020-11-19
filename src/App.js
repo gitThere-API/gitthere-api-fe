@@ -5,12 +5,12 @@ import {
   Switch,
 } from "react-router-dom";
 import './App.css';
-import Detail from './Detail.js';
-import About from './About.js';
-import Map from './Map.js';
+import Detail from './Detail/Detail.js';
+import About from './About/About.js';
+import Map from './Map/Map.js';
 import Home from './Home/Home.js'
 import PrivateRoute from './PrivateRoute.js';
-import Header from './Header.js';
+import Header from './Header/Header.js';
 
 export default class App extends Component {
   state = {

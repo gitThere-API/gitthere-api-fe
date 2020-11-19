@@ -81,7 +81,7 @@ p {
     margin-top: 5px;
 }
 
-.trimet:hover {
+.live-map .trimet:hover {
     width: 35px;
     height: 35px;
 }
