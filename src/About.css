@@ -1,5 +1,4 @@
 .about-h2 {
-    padding-left: 10px;
     display: flex;
     justify-content: center;
 }
@@ -46,41 +45,11 @@ img {
 }
 
 @media only screen and (min-width: 450px) {
-    .about-h2 {
-        padding-left: 10px;
-    }
-
-    .about img {
-        width: 80%;
-        border-radius: 50%;
-    }
     
     .about {
         display: flex;
         flex-direction: row;
         text-align: center;
         padding-left: 10px;
-    }
-    
-    .about-div {
-        padding: 10px;
-    } 
-    
-    .title {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
-    
-    .name {
-        font-size: larger;
-        font-weight: 800;
-        
-    }
-    
-    .bio {
-        display: flex;
-        text-align: left;
-        text-indent: 1.5em;
     }
 }
