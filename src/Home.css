@@ -1,3 +1,47 @@
-.map {
-    width: 50%
+* {
+    font-family: Raleway;
 }
+
+h3 {
+    margin-top: 0px;
+}
+.home {
+    background-color: #2A9D8F;
+}
+
+.map-example {
+    width: 100%;
+    margin-bottom: 10px;
+}
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-form {
+    margin: 5px;
+    padding: 5px;
+    display: grid;
+    border: #264653 solid 1px;
+    border-radius: 5px;
+}
+
+.signup-form {
+    margin: 10px;
+    padding: 5px;
+    display: grid;
+    border: lightgray solid 1px;
+    border-radius: 5px;
+}
+
+.login-user, .login-pass, .signup-user, .signup-pass {
+    margin: 5px;
+}
+
+.login-pass {
+    margin: 5px;
+}
+
+

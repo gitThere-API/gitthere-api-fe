@@ -65,35 +65,40 @@ export default class Home extends Component {
     render() {
         return (
             <>
-                <div><img className="map-example" src="map.png" alt="map-example" /></div>
-                Sign Up
-                <form onSubmit={this.handleSignupSubmit}>
-                    <label>
-                        Username: <input onChange={(e) => this.setState({ signUpEmail: e.target.value })} value={this.state.signUpEmail} type="email" />
-                    </label>
-                    <label>
-                        Password: <input onChange={(e) => this.setState({ signUpPassword: e.target.value })} value={this.state.signUpPassword} type="password" />
-                    </label>
-                    {
-                        this.state.loading
-                            ? 'Loadddiiinnnnnggggggg'
-                            : <button>Sign Up!</button>
-                    }
-                </form>
-                Log In
-                <form onSubmit={this.handleLoginSubmit}>
-                    <label>
-                        Username: <input onChange={(e) => this.setState({ loginEmail: e.target.value })} value={this.state.loginEmail} type="email" />
-                    </label>
-                    <label>
-                        Password: <input onChange={(e) => this.setState({ loginPassword: e.target.value })} value={this.state.loginPassword} type="password" />
-                    </label>
-                    {
-                        this.state.loading
-                            ? 'Loadddiiinnnnnggggggg'
-                            : <button>Log in!</button>
-                    }
-                </form>
+                <section className="home">
+                    <div><img className="map-example" src="map.png" alt="map-example" /></div>
+
+                    <h3>Log In</h3>
+                    <form className="login-form" onSubmit={this.handleLoginSubmit}>
+                        <label className="login-user">
+                            Username: <input onChange={(e) => this.setState({ loginEmail: e.target.value })} value={this.state.loginEmail} type="email" />
+                        </label>
+                        <label className="login-pass">
+                            Password: <input onChange={(e) => this.setState({ loginPassword: e.target.value })} value={this.state.loginPassword} type="password" />
+                        </label>
+                        {
+                            this.state.loading
+                                ? 'Loadddiiinnnnnggggggg'
+                                : <button>Log in!</button>
+                        }
+                    </form>
+
+                    <h3>Sign Up</h3>
+                    <form className="signup-form" onSubmit={this.handleSignupSubmit}>
+                        <label className="signup-user">
+                            Username: <input onChange={(e) => this.setState({ signUpEmail: e.target.value })} value={this.state.signUpEmail} type="email" />
+                        </label>
+                        <label className="signup-pass">
+                            Password: <input onChange={(e) => this.setState({ signUpPassword: e.target.value })} value={this.state.signUpPassword} type="password" />
+                        </label>
+                        {
+                            this.state.loading
+                                ? 'Loadddiiinnnnnggggggg'
+                                : <button>Sign Up!</button>
+                        }
+                    </form>
+
+                </section>
             </>
         )
     }
