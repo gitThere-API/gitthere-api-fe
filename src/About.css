@@ -1,3 +1,9 @@
+.about-h2 {
+    padding-left: 10px;
+    display: flex;
+    justify-content: center;
+}
+
 .about img {
     width: 80%;
     border-radius: 50%;
@@ -5,14 +11,13 @@
 
 .about {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     text-align: center;
 }
 
-/* This needs refined to only impact the about page. */
-/* div {
-    padding: 10px;
-} */
+.about-div {
+    padding: 10px 10px 40px 10px;
+} 
 
 .title {
     display: flex;
@@ -26,6 +31,10 @@
     
 }
 
+.about-icon {
+    padding: 5px;
+}
+
 .bio {
     display: flex;
     text-align: left;
@@ -34,4 +43,44 @@
 
 img {
     border: none;
+}
+
+@media only screen and (min-width: 450px) {
+    .about-h2 {
+        padding-left: 10px;
+    }
+
+    .about img {
+        width: 80%;
+        border-radius: 50%;
+    }
+    
+    .about {
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        padding-left: 10px;
+    }
+    
+    .about-div {
+        padding: 10px;
+    } 
+    
+    .title {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    
+    .name {
+        font-size: larger;
+        font-weight: 800;
+        
+    }
+    
+    .bio {
+        display: flex;
+        text-align: left;
+        text-indent: 1.5em;
+    }
 }
