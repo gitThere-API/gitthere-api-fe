@@ -15,7 +15,6 @@ export default class Home extends Component {
 
     handleSignupSubmit = async (e) => {
         e.preventDefault();
-        console.log(this.state);
 
         this.setState({ loading: true })
         const user = await request

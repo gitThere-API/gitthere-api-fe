@@ -29,7 +29,7 @@ export default class About extends Component {
                         <img src='https://avatars3.githubusercontent.com/u/70562690?s=460&u=d9a1117c21f766c795ca7f7126960a31084a54b6&v=4' alt="erik-graciosa" />
                         <p className="name">Erik Graciosa</p>
                         <span className="title"><div className="about-icon"><a href={`https://github.com/ErikGraciosa`}><BasicMarkerGitHub /></a></div><div className="about-icon"><a href={`https://www.linkedin.com/in/erikgraciosa/`}>< BasicMarkerLinkedIn /></a></div></span>
-                        <span className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </span>
+                        <span className="bio">Erik is a full-stack software engineer. Two wheeled transportation is his top choice. In the gitThere application he practiced full stack development in React and writing Express endpoints. </span>
                     </div>
                 </div >
             </>
