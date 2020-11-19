@@ -18,6 +18,14 @@
     justify-content: space-around;
 }
 
+.legend {
+    display: flex;
+    flex-direction: row;
+    flex-direction: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .trimet:hover {
     width: 35px;
     height: 35px;
