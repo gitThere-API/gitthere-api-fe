@@ -20,14 +20,9 @@ export default class About extends Component {
                     </div >
                     <div className="about-div">
                         <img src='https://avatars1.githubusercontent.com/u/64820882?s=460&v=4' alt="shane-upchurch" />
-                        <p className="name">
-                            Shane Upchurch
-                            </p>
-                        <span className="title"><div className="about-icon"><a href={`https://github.com/ShaneUP1`}>
-                            <BasicMarkerGitHub />
-                        </a></div><div className="about-icon"><a href={`https://www.linkedin.com/in/shaneupchurch/`}>
-                            < BasicMarkerLinkedIn />
-                        </a></div></span>
+                        <p className="name">Shane Upchurch</p>
+                        <span className="title"><div className="about-icon"><a href={`https://github.com/ShaneUP1`}
+                        ><BasicMarkerGitHub /></a></div><div className="about-icon"><a href={`https://www.linkedin.com/in/shaneupchurch/`}>< BasicMarkerLinkedIn /></a></div></span>
                         <span className="bio">Shane is full-stack software engineer. He enjoys long scoot rides on the beach, pedalling to the nearest cidery, and bus rides to the nearest park with his family. </span>
                     </div>
                     <div className="about-div">
