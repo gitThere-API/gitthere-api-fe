@@ -66,7 +66,9 @@ export default class Home extends Component {
         return (
             <>
                 <section className="home">
-                    <div><img className="map-example" src="map.png" alt="map-example" /></div>
+                    <div className="home-image">
+                        <img className="map-example" src="map.png" alt="map-example" />
+                    </div>
 
                     <div className="username-password">
                         <div>
