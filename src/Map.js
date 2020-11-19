@@ -21,8 +21,8 @@ export default class Map extends Component {
         spin: [],
         trimet: [],
         favorites: [],
-        lat: 45.5234109,
-        lng: -122.681133
+        lat: Number(localStorage.getItem('LAT')) || 45.5234109,
+        lng: Number(localStorage.getItem('LNG')) || -122.681133
     }
 
     static defaultProps = {
@@ -161,6 +161,14 @@ export default class Map extends Component {
         // await this.props.history.push('/map')
     }
 
+    handleDetailClick = () => {
+
+        localStorage.setItem('LAT', this.state.lat);
+        localStorage.setItem('LNG', this.state.lng);
+
+        // await this.props.history.push('/map')
+    }
+
     render() {
 
 
@@ -235,7 +243,7 @@ export default class Map extends Component {
                             />
                         )}
                         {!this.state.loading && this.state.trimet.map(oneStop =>
-                            <Link to={`/detail/${oneStop.attributes.locid}`}
+                            <Link onClick={this.handleDetailClick} to={`/detail/${oneStop.attributes.locid}`}
                                 lat={oneStop.attributes.lat}
                                 lng={oneStop.attributes.lng}
                                 text={oneStop.attributes.locid}
