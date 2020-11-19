@@ -9,10 +9,6 @@ import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import './App.css';
 import './Map.css';
-import { NikeIcon } from './NikeIcon.js';
-import { SpinIcon } from './SpinIcon.js';
-import { LimeIcon } from './LimeIcon.js';
-import { TrimetIcon } from './TrimetIcon.js';
 
 export default class Map extends Component {
 
@@ -160,16 +156,16 @@ export default class Map extends Component {
                 </div>
                 <div className="legend">
                     <div>
-                        {NikeIcon}Nike BikeTown
+                        <BasicMarkerNike/> BikeTown
                     </div>
                     <div>
-                        {SpinIcon}Spin Scooter
+                        <BasicMarkerSpin/>Spin Scooter
                     </div>
                     <div>
-                        {LimeIcon}Lime Scooter
+                        <BasicMarkerLime/>Lime Scooter
                     </div>
                     <div>
-                        {TrimetIcon}Trimet Stop
+                        <BasicMarkerTriMet/> Trimet Stop
                     </div>
                 </div>
                 <div className='MapSubHeader'>
