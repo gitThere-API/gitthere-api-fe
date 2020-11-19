@@ -10,7 +10,6 @@ import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import './App.css';
 import './Map.css';
 
-
 export default class Map extends Component {
 
     state = {
@@ -45,7 +44,6 @@ export default class Map extends Component {
             .get(`https://desolate-bayou-65072.herokuapp.com/api/lime?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
         await this.setState({ lime: response.body, loading: false })
-
     }
 
     fetchNike = async () => {
@@ -55,59 +53,43 @@ export default class Map extends Component {
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/nike?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
-
         await this.setState({ nike: response.body, loading: false })
     }
 
     fetchSpin = async () => {
         const { token } = this.props;
-
         await this.setState({ loading: true });
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/spin?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
-
         await this.setState({ spin: response.body, loading: false })
     }
 
     fetchTrimet = async () => {
         const { token } = this.props;
-
         await this.setState({ loading: true });
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
             .set('Authorization', token)
-
         const xml = new XMLParser().parseFromString(response.body.text);
-
         await this.setState({ trimet: xml.children, loading: false })
-
     }
 
     fetchFavorites = async () => {
         const { token } = this.props;
-
         const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
             .set('Authorization', token)
         await this.setState({ favorites: response.body })
     }
 
-
     handleSubmit = async (e) => {
         const { token } = this.props;
-
         e.preventDefault();
-
-
         await this.setState({ loading: true });
-
         const response = await request.get(`https://desolate-bayou-65072.herokuapp.com/api/location?search=${this.state.location}`)
-
-
             .set('Authorization', token);
 
         this.setState({
-
             lat: Number(response.body.lat),
             lng: Number(response.body.lng),
             loading: false
@@ -117,7 +99,6 @@ export default class Map extends Component {
         await this.fetchNike();
         await this.fetchSpin();
         await this.fetchTrimet();
-
     }
 
     handleFavoriteClick = async () => {
@@ -142,6 +123,7 @@ export default class Map extends Component {
 
         await request.delete(`https://desolate-bayou-65072.herokuapp.com/api/favorites/${someId}`)
             .set('Authorization', this.props.token)
+
         await this.fetchFavorites()
         this.setState({ loading: false });
     }
@@ -157,25 +139,34 @@ export default class Map extends Component {
         await this.fetchNike();
         await this.fetchSpin();
         await this.fetchTrimet();
-
         // await this.props.history.push('/map')
     }
 
     handleDetailClick = () => {
-
         localStorage.setItem('LAT', this.state.lat);
         localStorage.setItem('LNG', this.state.lng);
-
         // await this.props.history.push('/map')
     }
 
     render() {
-
-
         return (
             <div>
                 <div className='MapHeader'>
-                    <h2>This is the map page, here you will input location and save location and see results, bus details below.</h2>
+                    <h2>Map Page</h2>
+                </div>
+                <div className="legend">
+                    <div>
+                        <BasicMarkerNike/> BikeTown
+                    </div>
+                    <div>
+                        <BasicMarkerSpin/>Spin Scooter
+                    </div>
+                    <div>
+                        <BasicMarkerLime/>Lime Scooter
+                    </div>
+                    <div>
+                        <BasicMarkerTriMet/> Trimet Stop
+                    </div>
                 </div>
                 <div className='MapSubHeader'>
                     <section>
