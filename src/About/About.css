@@ -52,4 +52,8 @@ img {
         text-align: center;
         padding-left: 10px;
     }
+
+    .about-div {
+        width: 33%;
+    }
 }
