@@ -9,9 +9,10 @@
     text-align: center;
 }
 
-div {
+/* This needs refined to only impact the about page. */
+/* div {
     padding: 10px;
-}
+} */
 
 .title {
     display: flex;
@@ -29,4 +30,8 @@ div {
     display: flex;
     text-align: left;
     text-indent: 1.5em;
+}
+
+img {
+    border: none;
 }
