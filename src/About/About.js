@@ -16,7 +16,7 @@ export default class About extends Component {
                         <img src='https://avatars3.githubusercontent.com/u/18178118?s=460&u=290e25028eca8625d7937546f483102a26a15124&v=4' alt="perry-sittser" />
                         <p className="name">Perry Sittser</p>
                         <span className="title"><div className="about-icon"><a href={`https://github.com/sittserp`}><BasicMarkerGitHub /></a></div><div className="about-icon"><a href={`https://www.linkedin.com/in/sittserp/`}>< BasicMarkerLinkedIn /></a></div></span>
-                        <span className="bio">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo </span>
+                        <span className="bio">Perry is a full-stack software engineer.  When he's not coding, you can usually find him outside discovering nature with his kids and family. </span>
                     </div >
                     <div className="about-div">
                         <img src='https://avatars1.githubusercontent.com/u/64820882?s=460&v=4' alt="shane-upchurch" />
