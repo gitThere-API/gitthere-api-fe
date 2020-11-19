@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import BasicMarkerGitHub from '../Map/BasicMarkerGitHub.js';
 import BasicMarkerLinkedIn from '../Map/BasicMarkerLinkedIn.js';
 
+
 import './About.css';
 
 export default class About extends Component {

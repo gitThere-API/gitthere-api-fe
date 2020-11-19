@@ -200,6 +200,7 @@ export default class Map extends Component {
                 </div>
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
+                        className="live-map"
                         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
                         defaultCenter={{
                             lat: this.state.lat,
