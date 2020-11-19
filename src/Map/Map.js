@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import XMLParser from 'react-xml-parser';
 import request from 'superagent';
 import GoogleMapReact from 'google-map-react';
-import BasicMarkerLime from '../BasicMarkerLime.js';
-import BasicMarkerNike from '../BasicMarkerNike.js';
-import BasicMarkerSpin from '../BasicMarkerSpin.js';
-import BasicMarkerTriMet from '../BasicMarkerTriMet.js';
-import './App.css';
+import BasicMarkerLime from './BasicMarkerLime.js';
+import BasicMarkerNike from './BasicMarkerNike.js';
+import BasicMarkerSpin from './BasicMarkerSpin.js';
+import BasicMarkerTriMet from './BasicMarkerTriMet.js';
+import '../App.css';
 import './Map.css';
 
 export default class Map extends Component {
