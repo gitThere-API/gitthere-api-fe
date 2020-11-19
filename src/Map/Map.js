@@ -80,7 +80,8 @@ export default class Map extends Component {
         const { token } = this.props;
         const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
             .set('Authorization', token)
-        await this.setState({ favorites: response.body })
+        const topThreeFaves = response.body.slice(-3);
+        await this.setState({ favorites: topThreeFaves })
     }
 
     handleSubmit = async (e) => {
