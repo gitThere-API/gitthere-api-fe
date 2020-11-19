@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import XMLParser from 'react-xml-parser';
 import request from 'superagent';
 import GoogleMapReact from 'google-map-react';
-import BasicMarkerLime from './BasicMarkerLime.js';
-import BasicMarkerNike from './BasicMarkerNike.js';
-import BasicMarkerSpin from './BasicMarkerSpin.js';
-import BasicMarkerTriMet from './BasicMarkerTriMet.js';
+import BasicMarkerLime from '../BasicMarkerLime.js';
+import BasicMarkerNike from '../BasicMarkerNike.js';
+import BasicMarkerSpin from '../BasicMarkerSpin.js';
+import BasicMarkerTriMet from '../BasicMarkerTriMet.js';
 import './App.css';
 import './Map.css';
 
@@ -14,6 +14,7 @@ export default class Map extends Component {
 
     state = {
         location: '',
+        enteredLocation: '',
         loading: false,
         lime: [],
         nike: [],
@@ -85,7 +86,7 @@ export default class Map extends Component {
     handleSubmit = async (e) => {
         const { token } = this.props;
         e.preventDefault();
-        await this.setState({ loading: true });
+        await this.setState({ loading: true, enteredLocation: this.state.location });
         const response = await request.get(`https://desolate-bayou-65072.herokuapp.com/api/location?search=${this.state.location}`)
             .set('Authorization', token);
 
@@ -115,7 +116,7 @@ export default class Map extends Component {
             .set('Authorization', this.props.token)
 
         await this.fetchFavorites()
-        await this.setState({ loading: false });
+        await this.setState({ loading: false, enteredLocation: '' });
     }
 
     handleDeleteClick = async (someId) => {
@@ -163,7 +164,7 @@ export default class Map extends Component {
                             </label>
                             <button>Submit location</button>
                         </form>
-                        <div className="current-location">Current location: <br></br> <span>{this.state.location}</span>
+                        <div className="current-location">Current location: <br></br> <span>{this.state.enteredLocation}</span>
                             <br></br>
                             <button onClick={this.handleFavoriteClick}>Save current location</button>
                         </div>
@@ -185,7 +186,7 @@ export default class Map extends Component {
                 </div>
                 <div className="legend">
                     <div>
-                        <BasicMarkerNike /> BikeTown
+                        <BasicMarkerNike /> Nike
                     </div>
                     <div>
                         <BasicMarkerSpin />Spin
