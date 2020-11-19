@@ -105,7 +105,7 @@ export default class Map extends Component {
     handleFavoriteClick = async () => {
         await this.setState({ loading: true });
         const faveName = prompt("What would you like to call this favorite location?");
-
+        if (faveName === null) return;
         await request.post('https://desolate-bayou-65072.herokuapp.com/api/favorites')
             .send({
                 name: faveName,
@@ -117,6 +117,7 @@ export default class Map extends Component {
 
         await this.fetchFavorites()
         await this.setState({ loading: false, enteredLocation: '' });
+
     }
 
     handleDeleteClick = async (someId) => {
