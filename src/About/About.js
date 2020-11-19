@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
-import BasicMarkerGitHub from '../Map/BasicMarkerGitHub.js';
-import BasicMarkerLinkedIn from '../Map/BasicMarkerLinkedIn.js';
+import BasicMarkerGitHub from '../About/BasicMarkerGitHub.js';
+import BasicMarkerLinkedIn from '../About/BasicMarkerLinkedIn.js';
 
 
 import './About.css';
