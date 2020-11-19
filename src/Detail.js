@@ -20,14 +20,10 @@ export default class Detail extends Component {
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet/detail?locid=${this.props.match.params.id}`)
             .set('Authorization', token)
-
-        console.log(JSON.parse(JSON.parse(response.text).text));
-
         await this.setState({ 
             trimetLocation: JSON.parse(JSON.parse(response.text).text),
             loading: false,
         })
-
     }
 
     makeThreeDigitNumber = (routeNumber) => {
@@ -44,44 +40,31 @@ export default class Detail extends Component {
         return threeDigitNumber;
     }
 
-
     render() {
-        
-        console.log('state');
-        console.log(this.state);
-        console.log('from function')
-        console.log(this.fetchTrimetLocation());
-
         return (
             <div className='detailsPage'>
                 <div className='subHeader'>
-                    <h2>This is the details page. Will send query to Trimet based on the button clicked that has the location id that is fed into the API request and return next bus/train, query does return array that could also display more arrivals.</h2>
+                    <h2 className='subheader-details'>Trimet Details</h2>
                 </div>
-
                 {
                     this.state.loading
                     ? 'Content Loading'
                     : <>
-                        <section>
+                        <section className='details-text'>
                             <div>
-                                <h2>Route Number: {this.state.trimetLocation.resultSet.arrival[0].route} AT STOP "{this.state.trimetLocation.resultSet.location[0].desc}"</h2>
+                                <h2>Route Number: <span className='orange-highlight'>{this.state.trimetLocation.resultSet.arrival[0].route}</span> At Stop "<span className='orange-highlight'>{this.state.trimetLocation.resultSet.location[0].desc}</span>"</h2>
                             </div>
                             <div>
-                                <h2>Headed in direction: {this.state.trimetLocation.resultSet.location[0].dir}</h2>
+                                <h3>Headed in direction: <span className='orange-highlight'>{this.state.trimetLocation.resultSet.location[0].dir}</span></h3>
                             </div>
                             <div>
-                                <h3>Estimated arrival time to station/stop: {new Date(this.state.trimetLocation.resultSet.arrival[0].estimated).toLocaleTimeString('en-US')}</h3>
+                                <h4>Estimated arrival time to station/stop: <span className='orange-highlight'>{new Date(this.state.trimetLocation.resultSet.arrival[0].estimated).toLocaleTimeString('en-US')}</span></h4>
                             </div>
                         </section>
                         {/* Need digit code to be 3 digit but pull from data */}
-                        <img src={`https://trimet.org/schedules/img/${this.makeThreeDigitNumber(this.state.trimetLocation.resultSet.arrival[0].route)}.png`} alt='busmap'></img>
+                        <img className='busmap' src={`https://trimet.org/schedules/img/${this.makeThreeDigitNumber(this.state.trimetLocation.resultSet.arrival[0].route)}.png`} alt='busmap'></img>
                     </>
                 }
-                
-
-                
-                
-
             </div>
         )
     }

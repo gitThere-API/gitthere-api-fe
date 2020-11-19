@@ -2,8 +2,27 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #074b8d;
+    height: 100vh;
+    padding-top: 3px;
 }
 
-img {
-    width: 80%;
+.subheader-details {
+    padding: 0px
+}
+
+.busmap {
+    border: solid #d1441d 5px;
+    border-radius: 10px;
+    width: 95%;
+    margin: 10px;
+}
+
+.details-text {
+    width: 95%;
+    text-align: center;
+}
+
+.orange-highlight {
+    color: #d1441d;
 }
