@@ -5,7 +5,9 @@ import {
   Switch,
 } from "react-router-dom";
 import './App.css';
+
 import Detail from './Detail/Detail.js';
+
 import About from './About/About.js';
 import Map from './Map/Map.js';
 import Home from './Home/Home.js'
