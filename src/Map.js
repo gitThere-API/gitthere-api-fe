@@ -151,28 +151,11 @@ export default class Map extends Component {
     render() {
         return (
             <div>
-                <div className='MapHeader'>
-                    <h2>Map Page</h2>
-                </div>
-                <div className="legend">
-                    <div>
-                        <BasicMarkerNike/> BikeTown
-                    </div>
-                    <div>
-                        <BasicMarkerSpin/>Spin Scooter
-                    </div>
-                    <div>
-                        <BasicMarkerLime/>Lime Scooter
-                    </div>
-                    <div>
-                        <BasicMarkerTriMet/> Trimet Stop
-                    </div>
-                </div>
                 <div className='MapSubHeader'>
-                    <section>
+                    <section className="submit-location">
                         <form onSubmit={this.handleSubmit}>
-                            <label>Input location to return<br />
-                                <input
+                            <label>Search Location<br />
+                                <input className="location-search"
                                     required
                                     value={this.state.location}
                                     onChange={(e) => this.setState({ location: e.target.value })}
@@ -180,24 +163,39 @@ export default class Map extends Component {
                             </label>
                             <button>Submit location</button>
                         </form>
-                    </section>
-                    <section>
-                        <div>Current location: <span>{this.state.location}</span>
+                        <div className="current-location">Current location: <br></br> <span>{this.state.location}</span>
+                            <br></br>
                             <button onClick={this.handleFavoriteClick}>Save current location</button>
                         </div>
-                        <div>
+                    </section>
+                    <section className="fave-locations">
+
+                        <div className="faves-list">
                             <>
                                 {this.state.favorites.map(favorite =>
-                                    <div className='LocationList' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
+                                    <div className='location-list' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
                                         <p class="pointer" onClick={() =>
                                             this.handleUseFavorite(favorite.lat, favorite.lng, favorite.address)}>{favorite.name}</p>
-                                        <p>{favorite.address}</p>
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
                                     </div>
                                 )}
                             </>
                         </div>
                     </section>
+                </div>
+                <div className="legend">
+                    <div>
+                        <BasicMarkerNike /> BikeTown
+                    </div>
+                    <div>
+                        <BasicMarkerSpin />Spin
+                    </div>
+                    <div>
+                        <BasicMarkerLime />Lime
+                    </div>
+                    <div>
+                        <BasicMarkerTriMet /> Trimet
+                    </div>
                 </div>
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
