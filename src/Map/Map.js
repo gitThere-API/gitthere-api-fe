@@ -127,7 +127,7 @@ export default class Map extends Component {
             .set('Authorization', this.props.token)
 
         await this.fetchFavorites()
-        await this.setState({ loading: false, enteredLocation: '', location: this.state.location });
+        await this.setState({ loading: false });
     }
 
     handleDeleteClick = async (someId) => {
@@ -145,7 +145,8 @@ export default class Map extends Component {
             loading: true,
             lat: Number(someLat),
             lng: Number(someLng),
-            location: someDesc
+            location: someDesc,
+            enteredLocation: someDesc
         });
         await this.fetchLime();
         await this.fetchNike();
