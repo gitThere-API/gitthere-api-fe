@@ -62,6 +62,17 @@ p {
     margin-top: 5px;
 }
 
+.legend-icon-nike {
+    transform: translateX(5px) translateY(10px)
+}
+
+.legend-icon-lime {
+    transform: translateX(5px) translateY(10px)
+}
+
+.single-icon {
+    text-align: center;
+}
 
 .fave-locations {
     display: flex;
@@ -81,7 +92,7 @@ p {
     margin-top: 5px;
 }
 
-.live-map .trimet:hover {
+.trimet:hover {
     width: 35px;
     height: 35px;
 }

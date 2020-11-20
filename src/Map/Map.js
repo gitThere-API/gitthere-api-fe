@@ -185,18 +185,32 @@ export default class Map extends Component {
                     </section>
                 </div>
                 <div className="legend">
-                    <div>
-                        <BasicMarkerNike /> Nike
+                    <div className="single-icon">
+                        <a href="https://apps.apple.com/us/app/biketownpdx/id1132076989">
+                            <div className="legend-icon-nike">
+                                <BasicMarkerNike />
+                            </div>
+                            Nike
+                        </a>
                     </div>
-                    <div>
-                        <BasicMarkerSpin />Spin
+                        <a href="https://apps.apple.com/us/app/spin-electric-scooters/id1241808993">
+                            <div className="single-icon">
+                                <BasicMarkerSpin  />Spin
+                            </div>
+                        </a>
+                    <div className="single-icon">
+                        <a href="https://apps.apple.com/us/app/lime-your-ride-anytime/id1199780189">
+                            <div className="legend-icon-lime">
+                                <BasicMarkerLime />
+                            </div>
+                            Lime
+                        </a>
                     </div>
-                    <div>
-                        <BasicMarkerLime />Lime
-                    </div>
-                    <div>
-                        <BasicMarkerTriMet /> Trimet
-                    </div>
+                        <a href="https://trimet.org/#/planner">
+                            <div className="single-icon">
+                                <BasicMarkerTriMet />Trimet
+                            </div>
+                        </a>
                 </div>
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
@@ -214,6 +228,7 @@ export default class Map extends Component {
                     >
                         {this.state.lime.map(onelime =>
                             <BasicMarkerLime
+                                key={`${onelime.bike_id}-${Math.random()}`}
                                 lat={onelime.lat}
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
@@ -221,6 +236,7 @@ export default class Map extends Component {
                         )}
                         {this.state.nike.map(onelime =>
                             <BasicMarkerNike
+                                key={`${onelime.bike_id}-${Math.random()}`}
                                 lat={onelime.lat}
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
@@ -228,6 +244,7 @@ export default class Map extends Component {
                         )}
                         {this.state.spin.map(onelime =>
                             <BasicMarkerSpin
+                                key={`${onelime.bike_id}-${Math.random()}`}
                                 lat={onelime.lat}
                                 lng={onelime.lon}
                                 text={onelime.bike_id}
@@ -235,6 +252,7 @@ export default class Map extends Component {
                         )}
                         {!this.state.loading && this.state.trimet.map(oneStop =>
                             <Link onClick={this.handleDetailClick} to={`/detail/${oneStop.attributes.locid}`}
+                                key={`${oneStop.attributes.locid}-${Math.random()}`}
                                 lat={oneStop.attributes.lat}
                                 lng={oneStop.attributes.lng}
                                 text={oneStop.attributes.locid}

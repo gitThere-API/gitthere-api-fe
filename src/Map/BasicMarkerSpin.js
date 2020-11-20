@@ -6,7 +6,7 @@ export default class BasicMarkerSpin extends Component {
             <div>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    enable-background="new 0 0 294.006 294.006"
+                    enableBackground="new 0 0 294.006 294.006"
                     viewBox="0 0 294.006 294.006"
                     height="25"
                     width="25"
