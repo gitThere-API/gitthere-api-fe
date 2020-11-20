@@ -127,7 +127,7 @@ export default class Map extends Component {
             .set('Authorization', this.props.token)
 
         await this.fetchFavorites()
-        await this.setState({ loading: false, enteredLocation: '' });
+        await this.setState({ loading: false, enteredLocation: '', location: this.state.location });
     }
 
     handleDeleteClick = async (someId) => {
@@ -202,11 +202,11 @@ export default class Map extends Component {
                             Nike
                         </a>
                     </div>
-                        <a href="https://apps.apple.com/us/app/spin-electric-scooters/id1241808993">
-                            <div className="single-icon">
-                                <BasicMarkerSpin  />Spin
+                    <a href="https://apps.apple.com/us/app/spin-electric-scooters/id1241808993">
+                        <div className="single-icon">
+                            <BasicMarkerSpin />Spin
                             </div>
-                        </a>
+                    </a>
                     <div className="single-icon">
                         <a href="https://apps.apple.com/us/app/lime-your-ride-anytime/id1199780189">
                             <div className="legend-icon-lime">
@@ -215,11 +215,11 @@ export default class Map extends Component {
                             Lime
                         </a>
                     </div>
-                        <a href="https://trimet.org/#/planner">
-                            <div className="single-icon">
-                                <BasicMarkerTriMet />Trimet
+                    <a href="https://trimet.org/#/planner">
+                        <div className="single-icon">
+                            <BasicMarkerTriMet />Trimet
                             </div>
-                        </a>
+                    </a>
                 </div>
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
