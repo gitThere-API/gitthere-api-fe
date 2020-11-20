@@ -38,7 +38,6 @@ export default class App extends Component {
       username: '',
       token: ''
     })
-
   }
 
   render() {
