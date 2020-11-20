@@ -39,47 +39,55 @@ export default class Map extends Component {
 
     fetchLime = async () => {
         const { token } = this.props;
-
         await this.setState({ loading: true });
+
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/lime?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
+
         await this.setState({ lime: response.body, loading: false })
     }
 
     fetchNike = async () => {
         const { token } = this.props;
-
         await this.setState({ loading: true });
+
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/nike?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
+
         await this.setState({ nike: response.body, loading: false })
     }
 
     fetchSpin = async () => {
         const { token } = this.props;
         await this.setState({ loading: true });
+
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/spin?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
+
         await this.setState({ spin: response.body, loading: false })
     }
 
     fetchTrimet = async () => {
         const { token } = this.props;
         await this.setState({ loading: true });
+
         const response = await request
             .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
             .set('Authorization', token)
+
         const xml = new XMLParser().parseFromString(response.body.text);
         await this.setState({ trimet: xml.children, loading: false })
     }
 
     fetchFavorites = async () => {
         const { token } = this.props;
+
         const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
             .set('Authorization', token)
+
         const topThreeFaves = response.body.slice(-3);
         await this.setState({ favorites: topThreeFaves })
     }
@@ -105,8 +113,10 @@ export default class Map extends Component {
 
     handleFavoriteClick = async () => {
         await this.setState({ loading: true });
+
         const faveName = prompt("What would you like to call this favorite location?");
         if (faveName === null) return;
+
         await request.post('https://desolate-bayou-65072.herokuapp.com/api/favorites')
             .send({
                 name: faveName,
@@ -118,7 +128,6 @@ export default class Map extends Component {
 
         await this.fetchFavorites()
         await this.setState({ loading: false, enteredLocation: '' });
-
     }
 
     handleDeleteClick = async (someId) => {
@@ -142,13 +151,11 @@ export default class Map extends Component {
         await this.fetchNike();
         await this.fetchSpin();
         await this.fetchTrimet();
-        // await this.props.history.push('/map')
     }
 
     handleDetailClick = () => {
         localStorage.setItem('LAT', this.state.lat);
         localStorage.setItem('LNG', this.state.lng);
-        // await this.props.history.push('/map')
     }
 
     render() {
