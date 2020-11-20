@@ -7,19 +7,22 @@ h3 {
     margin-top: 5px;
 }
 .home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #2A9D8F;
+}
+
+.home-image {
+    padding-top: 35px;
 }
 
 .map-example {
     width: 100%;
     margin-bottom: 5px;
 }
-.home {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+
 
 
 .login-form {
@@ -44,6 +47,10 @@ h3 {
 
 .login-pass {
     margin: 5px;
+}
+
+.username-password {
+    padding-bottom: 20px;
 }
 
 @media only screen and (min-width: 450px) {
