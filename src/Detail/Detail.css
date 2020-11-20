@@ -26,3 +26,9 @@
 .orange-highlight {
     color: #d1441d;
 }
+
+@media only screen and (max-width: 450px) {
+    .detailsPage {
+        height: 100vh;
+    }
+}

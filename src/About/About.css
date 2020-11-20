@@ -54,6 +54,7 @@ img {
         flex-direction: row;
         text-align: center;
         padding-left: 10px;
+        height: 80vh;
     }
 
     .about-div {
