@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import request from 'superagent';
 import './Home.css'
 
-
+const URL = 'https://desolate-bayou-65072.herokuapp.com'
 export default class Home extends Component {
 
     state = {
@@ -18,7 +18,7 @@ export default class Home extends Component {
 
         this.setState({ loading: true })
         const user = await request
-            .post('https://desolate-bayou-65072.herokuapp.com/auth/signup')
+            .post(`${URL}/auth/signup`)
             .send({
                 email: this.state.signUpEmail,
                 password: this.state.signUpPassword
@@ -40,7 +40,7 @@ export default class Home extends Component {
         this.setState({ loading: true })
         try {
             const user = await request
-                .post('https://desolate-bayou-65072.herokuapp.com/auth/signin')
+                .post(`${URL}/auth/signin`)
                 .send({
                     email: this.state.loginEmail,
                     password: this.state.loginPassword

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import XMLParser from 'react-xml-parser';
 import request from 'superagent';
 import GoogleMapReact from 'google-map-react';
+// nice work moving these out into components! i wonder if you could have dropped the differences down as props, though . . .
 import BasicMarkerLime from './BasicMarkerLime.js';
 import BasicMarkerNike from './BasicMarkerNike.js';
 import BasicMarkerSpin from './BasicMarkerSpin.js';
@@ -10,6 +11,7 @@ import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import '../App.css';
 import './Map.css';
 
+import { URL } from '../Home/Home.js';
 export default class Map extends Component {
 
     state = {
@@ -30,11 +32,8 @@ export default class Map extends Component {
     };
 
     componentDidMount = async () => {
-        await this.fetchLime()
-        await this.fetchNike()
-        await this.fetchSpin()
-        await this.fetchFavorites()
-        await this.fetchTrimet()
+        // this will launch all fetches at the same time and save loading time
+        await this.fetchAll();
     }
 
     fetchLime = async () => {
@@ -42,7 +41,7 @@ export default class Map extends Component {
         await this.setState({ loading: true });
 
         const response = await request
-            .get(`https://desolate-bayou-65072.herokuapp.com/api/lime?lat=${this.state.lat}&lon=${this.state.lng}`)
+            .get(`${URL}/api/lime?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
 
         await this.setState({ lime: response.body, loading: false })
@@ -53,7 +52,7 @@ export default class Map extends Component {
         await this.setState({ loading: true });
 
         const response = await request
-            .get(`https://desolate-bayou-65072.herokuapp.com/api/nike?lat=${this.state.lat}&lon=${this.state.lng}`)
+            .get(`${URL}/api/nike?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
 
         await this.setState({ nike: response.body, loading: false })
@@ -64,7 +63,7 @@ export default class Map extends Component {
         await this.setState({ loading: true });
 
         const response = await request
-            .get(`https://desolate-bayou-65072.herokuapp.com/api/spin?lat=${this.state.lat}&lon=${this.state.lng}`)
+            .get(`${URL}/api/spin?lat=${this.state.lat}&lon=${this.state.lng}`)
             .set('Authorization', token)
 
         await this.setState({ spin: response.body, loading: false })
@@ -75,7 +74,7 @@ export default class Map extends Component {
         await this.setState({ loading: true });
 
         const response = await request
-            .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
+            .get(`${URL}/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
             .set('Authorization', token)
 
         const xml = new XMLParser().parseFromString(response.body.text);
@@ -85,7 +84,7 @@ export default class Map extends Component {
     fetchFavorites = async () => {
         const { token } = this.props;
 
-        const response = await request.get('https://desolate-bayou-65072.herokuapp.com/api/favorites')
+        const response = await request.get('${URL}/api/favorites')
             .set('Authorization', token)
 
         const topThreeFaves = response.body.slice(-3);
@@ -96,7 +95,7 @@ export default class Map extends Component {
         const { token } = this.props;
         e.preventDefault();
         await this.setState({ loading: true, enteredLocation: this.state.location });
-        const response = await request.get(`https://desolate-bayou-65072.herokuapp.com/api/location?search=${this.state.location}`)
+        const response = await request.get(`${URL}/api/location?search=${this.state.location}`)
             .set('Authorization', token);
 
         this.setState({
@@ -105,19 +104,17 @@ export default class Map extends Component {
             loading: false
         })
 
-        await this.fetchLime();
-        await this.fetchNike();
-        await this.fetchSpin();
-        await this.fetchTrimet();
+        await this.fetchAll();
     }
 
     handleFavoriteClick = async () => {
         await this.setState({ loading: true });
 
+        // would have liked to see a modal or something here, but i get it
         const faveName = prompt("What would you like to call this favorite location?");
         if (faveName === null) return;
 
-        await request.post('https://desolate-bayou-65072.herokuapp.com/api/favorites')
+        await request.post('${URL}/api/favorites')
             .send({
                 name: faveName,
                 lat: this.state.lat,
@@ -133,13 +130,13 @@ export default class Map extends Component {
     handleDeleteClick = async (someId) => {
         await this.setState({ loading: true });
 
-        await request.delete(`https://desolate-bayou-65072.herokuapp.com/api/favorites/${someId}`)
+        await request.delete(`${URL}/api/favorites/${someId}`)
             .set('Authorization', this.props.token)
 
         await this.fetchFavorites()
         this.setState({ loading: false });
     }
-
+    
     handleUseFavorite = async (someLat, someLng, someDesc) => {
         await this.setState({
             loading: true,
@@ -148,15 +145,22 @@ export default class Map extends Component {
             location: someDesc,
             enteredLocation: someDesc
         });
-        await this.fetchLime();
-        await this.fetchNike();
-        await this.fetchSpin();
-        await this.fetchTrimet();
+       await this.fetchAll();
     }
 
     handleDetailClick = () => {
         localStorage.setItem('LAT', this.state.lat);
         localStorage.setItem('LNG', this.state.lng);
+    }
+
+
+    fetchAll = async () => {
+        await Promise.all([
+            this.fetchLime(),
+            this.fetchNike(),
+            this.fetchSpin(),
+            this.fetchTrimet()
+        ]);
     }
 
     render() {
@@ -182,7 +186,6 @@ export default class Map extends Component {
                     <section className="fave-locations">
 
                         <div className="faves-list">
-                            <>
                                 {this.state.favorites.map(favorite =>
                                     <div className='location-list' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
                                         <p class="pointer" onClick={() =>
@@ -190,7 +193,6 @@ export default class Map extends Component {
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
                                     </div>
                                 )}
-                            </>
                         </div>
                     </section>
                 </div>
@@ -236,6 +238,7 @@ export default class Map extends Component {
                         }}
                         defaultZoom={this.props.zoom}
                     >
+                        {/* nice mappin'! super readable */}
                         {this.state.lime.map(onelime =>
                             <BasicMarkerLime
                                 key={`${onelime.bike_id}-${Math.random()}`}
@@ -267,8 +270,7 @@ export default class Map extends Component {
                                 lng={oneStop.attributes.lng}
                                 text={oneStop.attributes.locid}
                             >
-                                <BasicMarkerTriMet
-                                />
+                                <BasicMarkerTriMet />
                             </Link>
                         )}
                     </GoogleMapReact>

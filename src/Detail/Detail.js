@@ -3,6 +3,7 @@ import './Detail.css';
 import request from 'superagent';
 import { triMetStub } from './TriMetLocationStub.js';
 
+import { URL } from '../Home/Home.js'
 export default class Detail extends Component {
 
     state = {
@@ -18,7 +19,7 @@ export default class Detail extends Component {
         const { token } = this.props;
 
         const response = await request
-            .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet/detail?locid=${this.props.match.params.id}`)
+            .get(`${URL}/api/trimet/detail?locid=${this.props.match.params.id}`)
             .set('Authorization', token)
         await this.setState({
             trimetLocation: JSON.parse(JSON.parse(response.text).text),
@@ -26,6 +27,7 @@ export default class Detail extends Component {
         })
     }
 
+    // nice util!
     makeThreeDigitNumber = (routeNumber) => {
         //if 3 digits add no zeros, if 2 digits add leading zero, if 1 digit add 2 leading zeros.
         const oneZero = '0';
@@ -41,6 +43,8 @@ export default class Detail extends Component {
     }
 
     render() {
+        const threeDigitNumber = this.makeThreeDigitNumber(this.state.trimetLocation.resultSet.arrival[0].route);
+        
         return (
             <div className='detailsPage'>
                 <div className='subHeader'>
@@ -62,7 +66,7 @@ export default class Detail extends Component {
                                 </div>
                             </section>
                             {/* Need digit code to be 3 digit but pull from data */}
-                            <img className='busmap' src={`https://trimet.org/schedules/img/${this.makeThreeDigitNumber(this.state.trimetLocation.resultSet.arrival[0].route)}.png`} alt='busmap'></img>
+                            <img className='busmap' src={`https://trimet.org/schedules/img/${threeDigitNumber}.png`} alt='busmap'></img>
                         </>
                 }
             </div>
