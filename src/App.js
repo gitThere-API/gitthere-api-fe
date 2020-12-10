@@ -14,6 +14,8 @@ import Home from './Home/Home.js'
 import PrivateRoute from './PrivateRoute.js';
 import Header from './Header/Header.js';
 
+// nice work on the folder structure of this project! very easy to read!
+
 export default class App extends Component {
   state = {
     token: localStorage.getItem('TOKEN') || '',
@@ -31,13 +33,8 @@ export default class App extends Component {
   }
 
   logOut = () => {
-    localStorage.setItem('TOKEN', '');
-    localStorage.setItem('USERNAME', '');
-
-    this.setState({
-      username: '',
-      token: ''
-    })
+    this.handleTokenChange('');
+    this.handleUsernameChange('')
   }
 
   render() {

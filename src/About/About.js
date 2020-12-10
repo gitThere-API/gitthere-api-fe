@@ -10,6 +10,7 @@ export default class About extends Component {
     render() {
         return (
             <>
+            {/* might be nice to have this data living in json, to map over and prevent code duplication */}
                 <h2 className="about-h2">About Us</h2>
                 <div className="about">
                     <div className="about-div">
