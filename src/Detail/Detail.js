@@ -3,6 +3,9 @@ import './Detail.css';
 import request from 'superagent';
 import { triMetStub } from './TriMetLocationStub.js';
 
+// const URL = 'http://localhost:7980';
+const URL = 'https://desolate-bayou-65072.herokuapp.com';
+
 export default class Detail extends Component {
 
     state = {
@@ -18,7 +21,7 @@ export default class Detail extends Component {
         const { token } = this.props;
 
         const response = await request
-            .get(`https://desolate-bayou-65072.herokuapp.com/api/trimet/detail?locid=${this.props.match.params.id}`)
+            .get(`${URL}/api/trimet/detail?locid=${this.props.match.params.id}`)
             .set('Authorization', token)
         await this.setState({
             trimetLocation: JSON.parse(JSON.parse(response.text).text),

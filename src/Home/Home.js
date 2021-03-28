@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import request from 'superagent';
 import './Home.css'
 
+//const URL = 'http://localhost:7980';
+const URL = 'https://desolate-bayou-65072.herokuapp.com';
 
 export default class Home extends Component {
 
@@ -18,7 +20,7 @@ export default class Home extends Component {
 
         this.setState({ loading: true })
         const user = await request
-            .post('https://desolate-bayou-65072.herokuapp.com/auth/signup')
+            .post(`${URL}/auth/signup`)
             .send({
                 email: this.state.signUpEmail,
                 password: this.state.signUpPassword
@@ -40,7 +42,7 @@ export default class Home extends Component {
         this.setState({ loading: true })
         try {
             const user = await request
-                .post('https://desolate-bayou-65072.herokuapp.com/auth/signin')
+                .post(`${URL}/auth/signin`)
                 .send({
                     email: this.state.loginEmail,
                     password: this.state.loginPassword
@@ -68,7 +70,7 @@ export default class Home extends Component {
                 <section className="home">
                     <div className="home-image">
                         <h3 className="welcome-text">gitThere: API displays bike share, scooter, and bus system locations in Portland, OR.</h3>
-                        <h3 className="welcome-text">Sign up or log in to continue to the map.</h3>
+                        <h3 className="welcome-text">Sign up or log in to continue to the map in order to save locations.</h3>
                         <img className="map-example" src="map.png" alt="map-example" />
                     </div>
 
