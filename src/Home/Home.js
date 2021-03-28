@@ -71,6 +71,7 @@ export default class Home extends Component {
                     <div className="home-image">
                         <h3 className="welcome-text">gitThere: API displays bike share, scooter, and bus system locations in Portland, OR.</h3>
                         <h3 className="welcome-text">Sign up or log in to continue to the map in order to save locations.</h3>
+                        <h3 className="welcome-text">If you would like to demo the map, click "Preview" in the header.</h3>
                         <img className="map-example" src="map.png" alt="map-example" />
                     </div>
 

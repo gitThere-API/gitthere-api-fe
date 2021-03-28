@@ -10,8 +10,8 @@ import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import '../App.css';
 import './DemoMap.css';
 
-const URL = 'http://localhost:7890';
-// const URL = 'https://desolate-bayou-65072.herokuapp.com';
+// const URL = 'http://localhost:7890';
+const URL = 'https://desolate-bayou-65072.herokuapp.com';
 
 export default class DemoMap extends Component {
 
@@ -77,13 +77,6 @@ export default class DemoMap extends Component {
 
         const xml = new XMLParser().parseFromString(response.body.text);
         await this.setState({ trimet: xml.children, loading: false })
-    }
-
-    fetchFavorites = async () => {
-        const response = await request.get(`${URL}/api/favorites`)
-
-        const topThreeFaves = response.body.slice(-3);
-        await this.setState({ favorites: topThreeFaves })
     }
 
     handleSubmit = async (e) => {
