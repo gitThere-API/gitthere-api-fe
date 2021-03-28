@@ -1,0 +1,96 @@
+.BusButtons {
+    border: solid black 3px;
+    text-align: center;
+}
+
+.LocationList {
+    display: block;
+    
+}
+
+h2 {
+    margin: 0px;
+    padding: 5px;
+}
+
+.MapHeader {
+    text-align: center;
+    background-color: #F4A261;
+    padding: none;
+    margin: none;
+}
+
+.MapSubHeader {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    justify-content: space-evenly;
+    background-color: #F4A261;
+}
+
+p {
+    margin: 2px;
+}
+
+.location-list {
+    margin: 3px;
+}
+
+.faves-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: left;
+    text-align: center;
+    text-transform: uppercase;
+    color: #264653;
+    font-weight: bold;
+}
+
+.location-search {
+    margin-bottom: 5px;
+}
+
+.submit-location {
+    margin: 5px;
+}
+
+.current-location {
+    margin-top: 5px;
+}
+
+.legend-icon-nike {
+    transform: translateX(5px) translateY(10px)
+}
+
+.legend-icon-lime {
+    transform: translateX(5px) translateY(10px)
+}
+
+.single-icon {
+    text-align: center;
+}
+
+.fave-locations {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.legend {
+    display: flex;
+    flex-direction: row;
+    flex-direction: wrap;
+    align-items: baseline;
+    justify-content: space-evenly;
+    font-size: small;
+    margin-top: 5px;
+}
+
+.trimet:hover {
+    width: 35px;
+    height: 35px;
+}

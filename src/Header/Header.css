@@ -14,7 +14,6 @@
     flex-direction: row;
     justify-content: space-between;
     padding: 5px 5px 15px 5px;
-
 }
 
 .header-nav-links {
@@ -24,7 +23,6 @@
     flex-direction: row;
     justify-content: space-around;
     padding-top: 20px;
-   
 }
 
 .nav-link-button {
@@ -35,24 +33,23 @@
     font-weight: 800;
 }
 
-a.nav-link-button:link
-{
+a.nav-link-button:link {
    color: #FFFFFF;
    text-decoration: none;
 }
-a.nav-link-button:visited
-{
+
+a.nav-link-button:visited {
    color: #FFFFFF;
    text-decoration: none;
 }
-a.nav-link-button:hover
-{
+
+a.nav-link-button:hover {
    text-decoration: none;
    color: #000000;
    background-color: #FFFFFF;
 }
-a.nav-link-button:active
-{
+
+a.nav-link-button:active {
    color: #E9C46A;
    text-decoration: none;
 }

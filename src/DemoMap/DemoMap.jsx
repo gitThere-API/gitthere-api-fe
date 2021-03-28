@@ -8,12 +8,12 @@ import BasicMarkerNike from './BasicMarkerNike.js';
 import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import '../App.css';
-import './Map.css';
+import './DemoMap.css';
 
-// const URL = 'http://localhost:7980';
+// const URL = 'http://localhost:7890';
 const URL = 'https://desolate-bayou-65072.herokuapp.com';
 
-export default class Map extends Component {
+export default class DemoMap extends Component {
 
     state = {
         location: '',
@@ -36,71 +36,53 @@ export default class Map extends Component {
         await this.fetchLime()
         await this.fetchNike()
         await this.fetchSpin()
-        await this.fetchFavorites()
+        // await this.fetchFavorites()
         await this.fetchTrimet()
     }
 
     fetchLime = async () => {
-        const { token } = this.props;
+        // const { token } = this.props;
         await this.setState({ loading: true });
 
         const response = await request
             .get(`${URL}/api/lime?lat=${this.state.lat}&lon=${this.state.lng}`)
-            .set('Authorization', token)
+            // .set('Authorization', token)
 
         await this.setState({ lime: response.body, loading: false })
     }
 
     fetchNike = async () => {
-        const { token } = this.props;
         await this.setState({ loading: true });
 
         const response = await request
             .get(`${URL}/api/nike?lat=${this.state.lat}&lon=${this.state.lng}`)
-            .set('Authorization', token)
 
         await this.setState({ nike: response.body, loading: false })
     }
 
     fetchSpin = async () => {
-        const { token } = this.props;
         await this.setState({ loading: true });
 
         const response = await request
             .get(`${URL}/api/spin?lat=${this.state.lat}&lon=${this.state.lng}`)
-            .set('Authorization', token)
 
         await this.setState({ spin: response.body, loading: false })
     }
 
     fetchTrimet = async () => {
-        const { token } = this.props;
         await this.setState({ loading: true });
 
         const response = await request
             .get(`${URL}/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
-            .set('Authorization', token)
 
         const xml = new XMLParser().parseFromString(response.body.text);
         await this.setState({ trimet: xml.children, loading: false })
     }
 
-    fetchFavorites = async () => {
-        const { token } = this.props;
-
-        const response = await request.get(`${URL}/api/favorites`)
-            .set('Authorization', token)
-
-        const topThreeFaves = response.body.slice(-3);
-        await this.setState({ favorites: topThreeFaves })
-    }
-
     handleSubmit = async (e) => {
-        const { token } = this.props;
         e.preventDefault();
         await this.setState({ loading: true, enteredLocation: this.state.location });
         const response = await request.get(`${URL}/api/location?search=${this.state.location}`)
-            .set('Authorization', token);
 
         this.setState({
             lat: Number(response.body.lat),
@@ -108,49 +90,6 @@ export default class Map extends Component {
             loading: false
         })
 
-        await this.fetchLime();
-        await this.fetchNike();
-        await this.fetchSpin();
-        await this.fetchTrimet();
-    }
-
-    handleFavoriteClick = async () => {
-        await this.setState({ loading: true });
-
-        const faveName = prompt("What would you like to call this favorite location?");
-        if (faveName === null) return;
-
-        await request.post(`${URL}/api/favorites`)
-            .send({
-                name: faveName,
-                lat: this.state.lat,
-                lng: this.state.lng,
-                address: this.state.location,
-            })
-            .set('Authorization', this.props.token)
-
-        await this.fetchFavorites()
-        await this.setState({ loading: false });
-    }
-
-    handleDeleteClick = async (someId) => {
-        await this.setState({ loading: true });
-
-        await request.delete(`${URL}/api/favorites/${someId}`)
-            .set('Authorization', this.props.token)
-
-        await this.fetchFavorites()
-        this.setState({ loading: false });
-    }
-
-    handleUseFavorite = async (someLat, someLng, someDesc) => {
-        await this.setState({
-            loading: true,
-            lat: Number(someLat),
-            lng: Number(someLng),
-            location: someDesc,
-            enteredLocation: someDesc
-        });
         await this.fetchLime();
         await this.fetchNike();
         await this.fetchSpin();
@@ -177,12 +116,12 @@ export default class Map extends Component {
                             </label>
                             <button>Submit location</button>
                         </form>
-                        <div className="current-location">Current location: <br></br> <span>{this.state.enteredLocation}</span>
+                        {/* <div className="current-location">Current location: <br></br> <span>{this.state.enteredLocation}</span>
                             <br></br>
                             <button onClick={this.handleFavoriteClick}>Save current location</button>
-                        </div>
+                        </div> */}
                     </section>
-                    <section className="fave-locations">
+                    {/* <section className="fave-locations">
 
                         <div className="faves-list">
                             <>
@@ -195,7 +134,7 @@ export default class Map extends Component {
                                 )}
                             </>
                         </div>
-                    </section>
+                    </section> */}
                 </div>
                 <div className="legend">
                     <div className="single-icon">
