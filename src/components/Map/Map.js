@@ -7,7 +7,7 @@ import BasicMarkerLime from './BasicMarkerLime.js';
 import BasicMarkerNike from './BasicMarkerNike.js';
 import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
-import '../App.css';
+import '../App/App.css';
 import './Map.css';
 
 // const URL = 'http://localhost:7980';
@@ -197,7 +197,7 @@ export default class Map extends Component {
                         </div>
                     </section>
                 </div>
-                <div className="legend">
+                {/* <div className="legend">
                     <div className="single-icon">
                         <a href="https://apps.apple.com/us/app/biketownpdx/id1132076989">
                             <div className="legend-icon-nike">
@@ -224,7 +224,7 @@ export default class Map extends Component {
                             <BasicMarkerTriMet />Trimet
                             </div>
                     </a>
-                </div>
+                </div> */}
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
                         className="live-map"

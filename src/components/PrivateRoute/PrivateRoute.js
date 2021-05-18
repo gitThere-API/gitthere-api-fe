@@ -7,9 +7,12 @@ const PrivateRoute = ({ render: Component, ...rest }) => {
         // Otherwise, redirect the user to /home page
         <Route
             {...rest}
-            render={props => (rest.token ? <Component {...props} {...rest} /> : <Redirect to="/" />)}
+            render={props => (rest.token
+                ? <Component {...props} {...rest} />
+                : <Redirect to="/" />
+            )}
         />
-    )
+    );
 }
 
-export default PrivateRoute
+export default PrivateRoute;

@@ -6,13 +6,13 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import Detail from './Detail/Detail.js';
-import About from './About/About.js';
-import Map from './Map/Map.js';
-import DemoMap from './DemoMap/DemoMap.jsx';
-import Home from './Home/Home.js'
-import PrivateRoute from './PrivateRoute.js';
-import Header from './Header/Header.js';
+import Detail from '../Detail/Detail.js';
+import About from '../About/About.js';
+import Map from '../Map/Map.js';
+import DemoMap from '../DemoMap/DemoMap.jsx';
+import Home from '../Home/Home.js'
+import PrivateRoute from '../PrivateRoute/PrivateRoute.js';
+import Header from '../Header/Header.js';
 
 export default class App extends Component {
   state = {
