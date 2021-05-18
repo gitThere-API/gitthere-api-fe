@@ -9,9 +9,11 @@ import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import '../App/App.css';
 import './Map.css';
+import Legend from '../Legend/Legend.jsx';
+import { getScooters } from '../../services/scooters.js';
 
-// const URL = 'http://localhost:7980';
-const URL = 'https://desolate-bayou-65072.herokuapp.com';
+const URL = process.env.REACT_APP_URL;
+const BRANDS = ['lime', 'nike', 'spin'];
 
 export default class Map extends Component {
 
@@ -33,44 +35,30 @@ export default class Map extends Component {
     };
 
     componentDidMount = async () => {
-        await this.fetchLime()
-        await this.fetchNike()
-        await this.fetchSpin()
+        this.getAllScooters();
         await this.fetchFavorites()
         await this.fetchTrimet()
     }
 
-    fetchLime = async () => {
+    scooters = async (brand) => {
         const { token } = this.props;
+        const { lat, lng } = this.state;
         await this.setState({ loading: true });
 
-        const response = await request
-            .get(`${URL}/api/lime?lat=${this.state.lat}&lon=${this.state.lng}`)
-            .set('Authorization', token)
+        const response = await getScooters(lat, lng, token, brand);
 
-        await this.setState({ lime: response.body, loading: false })
+        await this.setState({ [brand]: response.body, loading: false })
     }
 
-    fetchNike = async () => {
-        const { token } = this.props;
-        await this.setState({ loading: true });
-
-        const response = await request
-            .get(`${URL}/api/nike?lat=${this.state.lat}&lon=${this.state.lng}`)
-            .set('Authorization', token)
-
-        await this.setState({ nike: response.body, loading: false })
-    }
-
-    fetchSpin = async () => {
-        const { token } = this.props;
-        await this.setState({ loading: true });
-
-        const response = await request
-            .get(`${URL}/api/spin?lat=${this.state.lat}&lon=${this.state.lng}`)
-            .set('Authorization', token)
-
-        await this.setState({ spin: response.body, loading: false })
+    getAllScooters = () => {
+        BRANDS.forEach(async (brand) => {
+            try {
+                await this.scooters(brand);
+            } catch(err) {
+                console.log(`${brand} fetch failed`);
+                console.log(err);
+            }
+        });
     }
 
     fetchTrimet = async () => {
@@ -108,9 +96,7 @@ export default class Map extends Component {
             loading: false
         })
 
-        await this.fetchLime();
-        await this.fetchNike();
-        await this.fetchSpin();
+        this.getAllScooters();
         await this.fetchTrimet();
     }
 
@@ -151,9 +137,7 @@ export default class Map extends Component {
             location: someDesc,
             enteredLocation: someDesc
         });
-        await this.fetchLime();
-        await this.fetchNike();
-        await this.fetchSpin();
+        this.getAllScooters();
         await this.fetchTrimet();
     }
 
@@ -183,7 +167,6 @@ export default class Map extends Component {
                         </div>
                     </section>
                     <section className="fave-locations">
-
                         <div className="faves-list">
                             <>
                                 {this.state.favorites.map(favorite =>
@@ -197,34 +180,7 @@ export default class Map extends Component {
                         </div>
                     </section>
                 </div>
-                {/* <div className="legend">
-                    <div className="single-icon">
-                        <a href="https://apps.apple.com/us/app/biketownpdx/id1132076989">
-                            <div className="legend-icon-nike">
-                                <BasicMarkerNike />
-                            </div>
-                            Nike
-                        </a>
-                    </div>
-                    <a href="https://apps.apple.com/us/app/spin-electric-scooters/id1241808993">
-                        <div className="single-icon">
-                            <BasicMarkerSpin />Spin
-                            </div>
-                    </a>
-                    <div className="single-icon">
-                        <a href="https://apps.apple.com/us/app/lime-your-ride-anytime/id1199780189">
-                            <div className="legend-icon-lime">
-                                <BasicMarkerLime />
-                            </div>
-                            Lime
-                        </a>
-                    </div>
-                    <a href="https://trimet.org/#/planner">
-                        <div className="single-icon">
-                            <BasicMarkerTriMet />Trimet
-                            </div>
-                    </a>
-                </div> */}
+                <Legend />
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
                         className="live-map"
@@ -241,26 +197,23 @@ export default class Map extends Component {
                     >
                         {this.state.lime.map(onelime =>
                             <BasicMarkerLime
-                                key={`${onelime.bike_id}-${Math.random()}`}
+                                key={`${onelime.lat}${onelime.lon}`}
                                 lat={onelime.lat}
                                 lng={onelime.lon}
-                                text={onelime.bike_id}
                             />
                         )}
-                        {this.state.nike.map(onelime =>
+                        {this.state.nike.map(onenike =>
                             <BasicMarkerNike
-                                key={`${onelime.bike_id}-${Math.random()}`}
-                                lat={onelime.lat}
-                                lng={onelime.lon}
-                                text={onelime.bike_id}
+                                key={`${onenike.lat}${onenike.lon}`}
+                                lat={onenike.lat}
+                                lng={onenike.lon}
                             />
                         )}
-                        {this.state.spin.map(onelime =>
+                        {this.state.spin.map(onespin =>
                             <BasicMarkerSpin
-                                key={`${onelime.bike_id}-${Math.random()}`}
-                                lat={onelime.lat}
-                                lng={onelime.lon}
-                                text={onelime.bike_id}
+                                key={`${onespin.lat}${onespin.lon}`}
+                                lat={onespin.lat}
+                                lng={onespin.lon}
                             />
                         )}
                         {!this.state.loading && this.state.trimet.map(oneStop =>
