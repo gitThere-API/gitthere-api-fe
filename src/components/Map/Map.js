@@ -9,6 +9,7 @@ import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import '../App/App.css';
 import './Map.css';
+import Legend from '../Legend/Legend.jsx';
 
 // const URL = 'http://localhost:7980';
 const URL = 'https://desolate-bayou-65072.herokuapp.com';
@@ -197,34 +198,7 @@ export default class Map extends Component {
                         </div>
                     </section>
                 </div>
-                {/* <div className="legend">
-                    <div className="single-icon">
-                        <a href="https://apps.apple.com/us/app/biketownpdx/id1132076989">
-                            <div className="legend-icon-nike">
-                                <BasicMarkerNike />
-                            </div>
-                            Nike
-                        </a>
-                    </div>
-                    <a href="https://apps.apple.com/us/app/spin-electric-scooters/id1241808993">
-                        <div className="single-icon">
-                            <BasicMarkerSpin />Spin
-                            </div>
-                    </a>
-                    <div className="single-icon">
-                        <a href="https://apps.apple.com/us/app/lime-your-ride-anytime/id1199780189">
-                            <div className="legend-icon-lime">
-                                <BasicMarkerLime />
-                            </div>
-                            Lime
-                        </a>
-                    </div>
-                    <a href="https://trimet.org/#/planner">
-                        <div className="single-icon">
-                            <BasicMarkerTriMet />Trimet
-                            </div>
-                    </a>
-                </div> */}
+                <Legend />
                 <div style={{ height: '100vh', width: '100%' }}>
                     <GoogleMapReact
                         className="live-map"
