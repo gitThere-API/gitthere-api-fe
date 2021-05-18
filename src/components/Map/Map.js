@@ -7,13 +7,19 @@ import BasicMarkerLime from './BasicMarkerLime.js';
 import BasicMarkerNike from './BasicMarkerNike.js';
 import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
+import Legend from '../Legend/Legend.jsx';
+import { getScooters, 
+    getFavorites,
+    deleteFavorite,
+    getLocation, 
+    addFavorite} from '../../services/scooters.js';
 import '../App/App.css';
 import './Map.css';
-import Legend from '../Legend/Legend.jsx';
-import { getScooters } from '../../services/scooters.js';
+import SearchSave from '../SearchSave/SearchSave.jsx';
 
 const URL = process.env.REACT_APP_URL;
 const BRANDS = ['lime', 'nike', 'spin'];
+const TRIMET = 'trimet';
 
 export default class Map extends Component {
 
@@ -41,11 +47,10 @@ export default class Map extends Component {
     }
 
     scooters = async (brand) => {
-        const { token } = this.props;
         const { lat, lng } = this.state;
         await this.setState({ loading: true });
 
-        const response = await getScooters(lat, lng, token, brand);
+        const response = await getScooters(lat, lng, this.props.token, brand);
 
         await this.setState({ [brand]: response.body, loading: false })
     }
@@ -62,33 +67,24 @@ export default class Map extends Component {
     }
 
     fetchTrimet = async () => {
-        const { token } = this.props;
         await this.setState({ loading: true });
 
-        const response = await request
-            .get(`${URL}/api/trimet?lat=${this.state.lat}&lng=${this.state.lng}`)
-            .set('Authorization', token)
+        const response = await getScooters(this.state.lat, this.state.lng, this.props.token, TRIMET);
 
         const xml = new XMLParser().parseFromString(response.body.text);
         await this.setState({ trimet: xml.children, loading: false })
     }
 
     fetchFavorites = async () => {
-        const { token } = this.props;
-
-        const response = await request.get(`${URL}/api/favorites`)
-            .set('Authorization', token)
-
+        const response = await getFavorites(this.props.token);
         const topThreeFaves = response.body.slice(-3);
         await this.setState({ favorites: topThreeFaves })
     }
 
     handleSubmit = async (e) => {
-        const { token } = this.props;
         e.preventDefault();
         await this.setState({ loading: true, enteredLocation: this.state.location });
-        const response = await request.get(`${URL}/api/location?search=${this.state.location}`)
-            .set('Authorization', token);
+        const response = await getLocation(this.state.location, this.props.token);
 
         this.setState({
             lat: Number(response.body.lat),
@@ -101,20 +97,13 @@ export default class Map extends Component {
     }
 
     handleFavoriteClick = async () => {
+        const {lat, lng, location} = this.state;
         await this.setState({ loading: true });
 
         const faveName = prompt("What would you like to call this favorite location?");
         if (faveName === null) return;
 
-        await request.post(`${URL}/api/favorites`)
-            .send({
-                name: faveName,
-                lat: this.state.lat,
-                lng: this.state.lng,
-                address: this.state.location,
-            })
-            .set('Authorization', this.props.token)
-
+        await addFavorite(faveName, lat, lng, location, this.props.token);
         await this.fetchFavorites()
         await this.setState({ loading: false });
     }
@@ -122,8 +111,7 @@ export default class Map extends Component {
     handleDeleteClick = async (someId) => {
         await this.setState({ loading: true });
 
-        await request.delete(`${URL}/api/favorites/${someId}`)
-            .set('Authorization', this.props.token)
+        await deleteFavorite(someId, this.props.token)
 
         await this.fetchFavorites()
         this.setState({ loading: false });
@@ -146,31 +134,25 @@ export default class Map extends Component {
         localStorage.setItem('LNG', this.state.lng);
     }
 
+    updateLocation = (e) => {
+        this.setState({ location: e.target.value })
+    }
+
     render() {
         return (
             <div>
                 <div className='MapSubHeader'>
-                    <section className="submit-location">
-                        <form onSubmit={this.handleSubmit}>
-                            <label>Search Location<br />
-                                <input className="location-search"
-                                    required
-                                    value={this.state.location}
-                                    onChange={(e) => this.setState({ location: e.target.value })}
-                                />
-                            </label>
-                            <button>Submit location</button>
-                        </form>
-                        <div className="current-location">Current location: <br></br> <span>{this.state.enteredLocation}</span>
-                            <br></br>
-                            <button onClick={this.handleFavoriteClick}>Save current location</button>
-                        </div>
-                    </section>
+                    <SearchSave
+                        handleSubmit={this.handleSubmit}
+                        location={this.state.location}
+                        updateLocation={this.updateLocation}
+                        enteredLocation={this.state.enteredLocation}
+                        handleFavoriteClick={this.handleFavoriteClick}/>
                     <section className="fave-locations">
                         <div className="faves-list">
                             <>
                                 {this.state.favorites.map(favorite =>
-                                    <div className='location-list' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
+                                    <div className='location-list' key={`${favorite.lat}${favorite.lng}`}>
                                         <p class="pointer" onClick={() =>
                                             this.handleUseFavorite(favorite.lat, favorite.lng, favorite.address)}>{favorite.name}</p>
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
