@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import XMLParser from 'react-xml-parser';
-import request from 'superagent';
 import GoogleMapReact from 'google-map-react';
 import BasicMarkerLime from './BasicMarkerLime.js';
 import BasicMarkerNike from './BasicMarkerNike.js';
@@ -17,7 +16,6 @@ import '../App/App.css';
 import './Map.css';
 import SearchSave from '../SearchSave/SearchSave.jsx';
 
-const URL = process.env.REACT_APP_URL;
 const BRANDS = ['lime', 'nike', 'spin'];
 const TRIMET = 'trimet';
 
@@ -205,8 +203,7 @@ export default class Map extends Component {
                                 lng={oneStop.attributes.lng}
                                 text={oneStop.attributes.locid}
                             >
-                                <BasicMarkerTriMet
-                                />
+                                <BasicMarkerTriMet/>
                             </Link>
                         )}
                     </GoogleMapReact>
