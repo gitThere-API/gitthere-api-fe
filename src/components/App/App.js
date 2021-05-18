@@ -8,7 +8,7 @@ import './App.css';
 
 import Detail from '../Detail/Detail.js';
 import About from '../About/About.js';
-import Map from '../Map/Map.js';
+import MapPage from '../../containers/MapPage/MapPage.jsx'
 import DemoMap from '../DemoMap/DemoMap.jsx';
 import Home from '../Home/Home.js'
 import PrivateRoute from '../PrivateRoute/PrivateRoute.js';
@@ -63,7 +63,7 @@ export default class App extends Component {
               token={this.state.token}
               exact
               path='/map'
-              render={(routerProps) => <Map
+              render={(routerProps) => <MapPage
                 {...routerProps} token={this.state.token}
               />} />
             <Route
