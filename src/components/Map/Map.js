@@ -7,6 +7,7 @@ import BasicMarkerNike from './BasicMarkerNike.js';
 import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
 import Legend from '../Legend/Legend.jsx';
+import SearchSave from '../SearchSave/SearchSave.jsx';
 import { getScooters, 
     getFavorites,
     deleteFavorite,
@@ -14,7 +15,7 @@ import { getScooters,
     addFavorite} from '../../services/scooters.js';
 import '../App/App.css';
 import './Map.css';
-import SearchSave from '../SearchSave/SearchSave.jsx';
+import Favorites from '../Favorites/Favorites.jsx';
 
 const BRANDS = ['lime', 'nike', 'spin'];
 const TRIMET = 'trimet';
@@ -40,8 +41,8 @@ export default class Map extends Component {
 
     componentDidMount = async () => {
         this.getAllScooters();
-        await this.fetchFavorites()
-        await this.fetchTrimet()
+        await this.fetchFavorites();
+        await this.fetchTrimet();
     }
 
     scooters = async (brand) => {
@@ -50,7 +51,7 @@ export default class Map extends Component {
 
         const response = await getScooters(lat, lng, this.props.token, brand);
 
-        await this.setState({ [brand]: response.body, loading: false })
+        await this.setState({ [brand]: response.body, loading: false });
     }
 
     getAllScooters = () => {
@@ -66,9 +67,7 @@ export default class Map extends Component {
 
     fetchTrimet = async () => {
         await this.setState({ loading: true });
-
         const response = await getScooters(this.state.lat, this.state.lng, this.props.token, TRIMET);
-
         const xml = new XMLParser().parseFromString(response.body.text);
         await this.setState({ trimet: xml.children, loading: false })
     }
@@ -76,7 +75,7 @@ export default class Map extends Component {
     fetchFavorites = async () => {
         const response = await getFavorites(this.props.token);
         const topThreeFaves = response.body.slice(-3);
-        await this.setState({ favorites: topThreeFaves })
+        await this.setState({ favorites: topThreeFaves });
     }
 
     handleSubmit = async (e) => {
@@ -102,16 +101,14 @@ export default class Map extends Component {
         if (faveName === null) return;
 
         await addFavorite(faveName, lat, lng, location, this.props.token);
-        await this.fetchFavorites()
+        await this.fetchFavorites();
         await this.setState({ loading: false });
     }
 
     handleDeleteClick = async (someId) => {
         await this.setState({ loading: true });
-
-        await deleteFavorite(someId, this.props.token)
-
-        await this.fetchFavorites()
+        await deleteFavorite(someId, this.props.token);
+        await this.fetchFavorites();
         this.setState({ loading: false });
     }
 
@@ -146,22 +143,13 @@ export default class Map extends Component {
                         updateLocation={this.updateLocation}
                         enteredLocation={this.state.enteredLocation}
                         handleFavoriteClick={this.handleFavoriteClick}/>
-                    <section className="fave-locations">
-                        <div className="faves-list">
-                            <>
-                                {this.state.favorites.map(favorite =>
-                                    <div className='location-list' key={`${favorite.lat}${favorite.lng}`}>
-                                        <p class="pointer" onClick={() =>
-                                            this.handleUseFavorite(favorite.lat, favorite.lng, favorite.address)}>{favorite.name}</p>
-                                        <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
-                                    </div>
-                                )}
-                            </>
-                        </div>
-                    </section>
+                    <Favorites
+                        favorites={this.state.favorites}
+                        handleUseFavorite={this.handleUseFavorite}
+                        handleDeleteClick={this.handleDeleteClick}/>
                 </div>
                 <Legend />
-                <div style={{ height: '100vh', width: '100%' }}>
+                <div style={{ height: '65vh', width: '100%' }}>
                     <GoogleMapReact
                         className="live-map"
                         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
@@ -209,9 +197,6 @@ export default class Map extends Component {
                     </GoogleMapReact>
                 </div>
             </div >
-
         )
     }
 }
-
-

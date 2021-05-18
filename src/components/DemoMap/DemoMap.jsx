@@ -127,7 +127,7 @@ export default class DemoMap extends Component {
                             <>
                                 {this.state.favorites.map(favorite =>
                                     <div className='location-list' key={`${favorite.lat}${favorite.lng}${Math.random()}`}>
-                                        <p class="pointer" onClick={() =>
+                                        <p className="pointer" onClick={() =>
                                             this.handleUseFavorite(favorite.lat, favorite.lng, favorite.address)}>{favorite.name}</p>
                                         <button onClick={() => this.handleDeleteClick(favorite.id)}>Delete</button>
                                     </div>
