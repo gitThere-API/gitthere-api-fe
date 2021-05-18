@@ -3,11 +3,12 @@ import { Link } from 'react-router-dom'
 import './Header.css';
 
 export default class Header extends Component {
+
+
     render() {
         return (
-
+            
             <div className="nav">
-
                 {this.props.token
                     ? <><div className="header-user">
                         <div>Hello, {this.props.username}</div>

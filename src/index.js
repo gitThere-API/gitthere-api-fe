@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import App from './components/App/App.js';
 import './fonts/Raleway-VariableFont_wght.ttf';
+import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>

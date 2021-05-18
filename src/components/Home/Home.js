@@ -14,7 +14,7 @@ export default class Home extends Component {
         loginPassword: '',
         loading: false,
     }
-
+    
     handleSignupSubmit = async (e) => {
         e.preventDefault();
 

@@ -7,7 +7,7 @@ import BasicMarkerLime from './BasicMarkerLime.js';
 import BasicMarkerNike from './BasicMarkerNike.js';
 import BasicMarkerSpin from './BasicMarkerSpin.js';
 import BasicMarkerTriMet from './BasicMarkerTriMet.js';
-import '../App.css';
+import '../App/App.css';
 import './DemoMap.css';
 
 // const URL = 'http://localhost:7890';
