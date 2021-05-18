@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import XMLParser from 'react-xml-parser';
 import GoogleMapReact from 'google-map-react';
-import BasicMarkerLime from './BasicMarkerLime.js';
-import BasicMarkerNike from './BasicMarkerNike.js';
-import BasicMarkerSpin from './BasicMarkerSpin.js';
-import BasicMarkerTriMet from './BasicMarkerTriMet.js';
-import Legend from '../Legend/Legend.jsx';
-import SearchSave from '../SearchSave/SearchSave.jsx';
+import BasicMarkerLime from '../../components/Map/BasicMarkerLime.js';
+import BasicMarkerNike from '../../components/Map/BasicMarkerNike.js';
+import BasicMarkerSpin from '../../components/Map/BasicMarkerSpin.js';
+import BasicMarkerTriMet from '../../components/Map/BasicMarkerTriMet.js';
+import Legend from '../../components/Legend/Legend.jsx';
+import SearchSave from '../../components/SearchSave/SearchSave.jsx';
 import { getScooters, 
     getFavorites,
     deleteFavorite,
     getLocation, 
     addFavorite} from '../../services/scooters.js';
-import '../App/App.css';
-import './Map.css';
-import Favorites from '../Favorites/Favorites.jsx';
+import '../../components/App/App.css';
+import './MapPage.css';
+import Favorites from '../../components/Favorites/Favorites.jsx';
 
 const BRANDS = ['lime', 'nike', 'spin'];
 const TRIMET = 'trimet';

@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import './Map.css';
+import React, { Component } from 'react';
+import '../../containers/MapPage/MapPage.css';
 
 
 export default class BasicMarkerTriMet extends Component {
