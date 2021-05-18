@@ -17,5 +17,35 @@ export const getScooters = async (lat, lng, token, brand) => {
       return await request
             .get(`${URL}/api/spin?lat=${lat}&lon=${lng}`)
             .set('Authorization', token);
+    case 'trimet':
+      return await request
+      .get(`${URL}/api/trimet?lat=${lat}&lng=${lng}`)
+      .set('Authorization', token)
   }
+}
+
+export const getFavorites = async (token) => {
+  return await request.get(`${URL}/api/favorites`)
+  .set('Authorization', token);
+}
+
+export const deleteFavorite = async (someId, token) => {
+  await request.delete(`${URL}/api/favorites/${someId}`)
+    .set('Authorization', token);
+}
+
+export const getLocation = async (location, token) => {
+  return await request.get(`${URL}/api/location?search=${location}`)
+            .set('Authorization', token);
+}
+
+export const addFavorite = async(faveName, lat, lng, location, token) => {
+  await request.post(`${URL}/api/favorites`)
+            .send({
+                name: faveName,
+                lat,
+                lng,
+                address: location,
+            })
+            .set('Authorization', token)
 }
