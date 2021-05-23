@@ -16,8 +16,10 @@ import { getScooters,
 import '../../components/App/App.css';
 import './MapPage.css';
 import Favorites from '../../components/Favorites/Favorites.jsx';
+import BasicMarkerBird from '../../components/Map/BasicMarkerBird.js';
+import BasicMarkerBolt from '../../components/Map/BasicMarkerBolt.js';
 
-const BRANDS = ['lime', 'nike', 'spin'];
+const BRANDS = ['lime', 'nike', 'spin', 'bird', 'bolt'];
 const TRIMET = 'trimet';
 
 export default class Map extends Component {
@@ -29,6 +31,8 @@ export default class Map extends Component {
         lime: [],
         nike: [],
         spin: [],
+        bird: [],
+        bolt: [],
         trimet: [],
         favorites: [],
         lat: Number(localStorage.getItem('LAT')) || 45.5234109,
@@ -45,15 +49,6 @@ export default class Map extends Component {
         await this.fetchTrimet();
     }
 
-    scooters = async (brand) => {
-        const { lat, lng } = this.state;
-        await this.setState({ loading: true });
-
-        const response = await getScooters(lat, lng, this.props.token, brand);
-
-        await this.setState({ [brand]: response.body, loading: false });
-    }
-
     getAllScooters = () => {
         BRANDS.forEach(async (brand) => {
             try {
@@ -64,6 +59,15 @@ export default class Map extends Component {
             }
         });
     }
+
+    scooters = async (brand) => {
+        const { lat, lng } = this.state;
+        await this.setState({ loading: true });
+
+        const response = await getScooters(lat, lng, this.props.token, brand);
+
+        await this.setState({ [brand]: response.body, loading: false });
+    }    
 
     fetchTrimet = async () => {
         await this.setState({ loading: true });
@@ -134,6 +138,7 @@ export default class Map extends Component {
     }
 
     render() {
+        console.log(this.state.bird, this.state.bolt)
         return (
             <div>
                 <div className='MapSubHeader'>
@@ -182,6 +187,20 @@ export default class Map extends Component {
                                 key={`${onespin.lat}${onespin.lon}`}
                                 lat={onespin.lat}
                                 lng={onespin.lon}
+                            />
+                        )}
+                        {this.state.bird.map(onebird =>
+                            <BasicMarkerBird
+                                key={`${onebird.lat}${onebird.lon}`}
+                                lat={onebird.lat}
+                                lng={onebird.lon}
+                            />
+                        )}
+                        {this.state.bolt.map(onebolt =>
+                            <BasicMarkerBolt
+                                key={`${onebolt.lat}${onebolt.lon}`}
+                                lat={onebolt.lat}
+                                lng={onebolt.lon}
                             />
                         )}
                         {!this.state.loading && this.state.trimet.map(oneStop =>
