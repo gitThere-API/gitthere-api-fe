@@ -5,22 +5,31 @@ const URL = process.env.REACT_APP_URL;
 export const getScooters = async (lat, lng, token, brand) => {
   switch(brand){
     default: 
+      return console.log('no brand');
     case 'lime':
       return await request
-            .get(`${URL}/api/lime?lat=${lat}&lon=${lng}`)
-            .set('Authorization', token);
+        .get(`${URL}/api/lime?lat=${lat}&lon=${lng}`)
+        .set('Authorization', token);
     case 'nike':
       return await request
-            .get(`${URL}/api/nike?lat=${lat}&lon=${lng}`)
-            .set('Authorization', token);   
+        .get(`${URL}/api/nike?lat=${lat}&lon=${lng}`)
+        .set('Authorization', token);   
     case 'spin':
       return await request
-            .get(`${URL}/api/spin?lat=${lat}&lon=${lng}`)
-            .set('Authorization', token);
-    case 'trimet':
+        .get(`${URL}/api/spin?lat=${lat}&lon=${lng}`)
+        .set('Authorization', token);
+    case 'trimet':  
       return await request
-      .get(`${URL}/api/trimet?lat=${lat}&lng=${lng}`)
-      .set('Authorization', token)
+        .get(`${URL}/api/trimet?lat=${lat}&lng=${lng}`)
+        .set('Authorization', token)
+    case 'bird':
+      return await request
+        .get(`${URL}/api/bird?lat=${lat}&lon=${lng}`)
+        .set('Authorization', token)
+    case 'bolt':
+      return await request
+        .get(`${URL}/api/bolt?lat=${lat}&lon=${lng}`)
+        .set('Authorization', token)
   }
 }
 
